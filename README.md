@@ -1,6 +1,6 @@
 ## Movie Chat App
 
-(more info to come)
+(more info to be added)
 
 
 =======================
