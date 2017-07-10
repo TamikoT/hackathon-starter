@@ -2,13 +2,13 @@
 var express = require('express');
 var socket = require('socket.io');
 
-// set up app on port :3000
+// set up Express server on port :3000
 var app = express();
 var server = app.listen(3000, function(){
   console.log('listening to local requests on :3000');
 });
 
-// location of static files
+// use built-in middleware function w/location of static files
 app.use(express.static('public'));
 
 // set up socket server
