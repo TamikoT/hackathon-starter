@@ -1,3 +1,10 @@
 ul {
   list-style: none;
 }
+
+#messages-window {
+  height: 200px;
+  color: black;
+  background: yellow;
+  overflow: scroll;
+}
