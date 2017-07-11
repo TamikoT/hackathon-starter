@@ -1,5 +1,5 @@
 // make client-side connection with Express server
-var socket = io('http://localhost:3000');
+var socket = io.connect('http://localhost:3000');
 
 // raw DOM objects as variables
 var message = document.getElementById('message'),
@@ -12,9 +12,11 @@ var message = document.getElementById('message'),
 sendButton.addEventListener('click', function(){
   console.log(message.value);
   socket.emit('chat', {
+    'room': room.value,
     'message': message.value,
     'username': username.value
   });
+
   // reset message content
   message.value = "";
 });
@@ -22,10 +24,4 @@ sendButton.addEventListener('click', function(){
 // event handler to add messages to DOM
 socket.on('chat', function(data){
   messages.innerHTML += '<li>' + data.username + ': ' + data.message + '</li>';
-});
-
-// event triggered w/ button click - new socket with namespace
-joinButton.addEventListener('click', function(){
-  socket = io('/room');
-  alert('you joined a room!');
 });
