@@ -6,14 +6,17 @@ var message = document.getElementById('message'),
     handle = document.getElementById('username'),
     sendButton = document.getElementById('send'),
     messages = document.getElementById('messages');
+    joinButton = document.getElementById('join'),
 
 // event triggered w/ button click - emit to Express server
 sendButton.addEventListener('click', function(){
   console.log(message.value);
   socket.emit('chat', {
+    'room': room.value,
     'message': message.value,
     'username': username.value
   });
+
   // reset message content
   message.value = "";
 });

@@ -1,26 +1,34 @@
-// dependencies
-var express = require('express');
-var socket = require('socket.io');
+// module dependencies
+const EXPRESS = require('express'),
+      HTTP = require('http'),
+      SOCKETIO = require('socket.io');
 
-// set up Express server on port :3000
-var app = express();
-var server = app.listen(3000, function(){
-  console.log('listening to local requests on :3000');
+// create new Express web server
+var app = EXPRESS();
+var server = HTTP.createServer(app);
+// set up socket by passing in HTTP server object
+var io = SOCKETIO(server);
+
+// express server listens on port :3000
+server.listen(3000, function() {
+  console.log('listening on *:3000');
 });
 
 // use built-in middleware function w/location of static files
-app.use(express.static('public'));
+app.use(EXPRESS.static('public'));
 
-// set up socket server
-var io = socket(server);
-
+// on socket connection
 io.on('connection', function(socket) {
   console.log('~socket made: connected to ' + socket.id);
 
-  // triggered from client side with button
+  // emitted from client side
   socket.on('chat', function(data){
-  // sending data back to ALL sockets
-    io.sockets.emit('chat', data);
-  });
 
+    // join a room based on user input
+    socket.join(data.room);
+    console.log("joined room: " + data.room);
+
+    // sending data back to ALL sockets
+    io.sockets.in(data.room).emit('chat', data);
+  });
 });
