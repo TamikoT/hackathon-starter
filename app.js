@@ -24,6 +24,8 @@ server.listen(3000, function() {
 });
 // Express setup
 app.use(express.static('public')); // point to location of static files
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // look for JSON in response body
 
 // create connection to database - MongoDB w/ Mongoose
 mongoose.Promise = global.Promise;
@@ -48,3 +50,7 @@ io.on('connection', function(socket) {
     io.sockets.in(data.room).emit('chat', data);
   });
 });
+
+// CONTROLLERS
+
+// ROUTES
