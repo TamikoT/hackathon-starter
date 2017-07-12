@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const chalk = require('chalk'); // colors for terminal
 // web server
 const express = require('express'); // web app framework
 const http = require('http'); // data transfer over HTTP (built-in)
@@ -20,7 +21,7 @@ dotenv.load({ path: '.env' });
 var app = express();
 var server = http.createServer(app);
 server.listen(3000, function() {
-  console.log('listening on *:3000');
+  console.log(chalk.yellow('listening on *:3000'));
 });
 // Express setup
 app.use(express.static('public')); // point to location of static files
@@ -28,24 +29,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
 
 // create connection to database - MongoDB w/ Mongoose
-mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {useMongoClient: true} );
-mongoose.connection.on('error', (err) => {
-  console.error(err);
-  console.log('Database connection error! Make sure MongoDB is running.');
+var db = mongoose.connection;
+db.on('error', function(error) {
+  console.error(chalk.red.bold('Database connection error! Make sure MongoDB is running.'));
   process.exit();
 });
+db.once('open', function() {
+  console.log(chalk.green.bold('Connected to MongoDB!'));
+});
+mongoose.Promise = global.Promise;
 
 // set up websocket our web server - socket.io
 var io = socketIo(server);
 // on socket connection
 io.on('connection', function(socket) {
-  console.log('~socket made: connected to ' + socket.id);
+  console.log(chalk.bgBlue('-> socket opened: ' + socket.id));
   // emitted from client side
   socket.on('chat', function(data){
     // join a room based on user input
     socket.join(data.room);
-    console.log("joined room: " + data.room);
+    console.log(data.username + " joined Room " + data.room);
     // sending data back to ALL sockets
     io.sockets.in(data.room).emit('chat', data);
   });

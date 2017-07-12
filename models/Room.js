@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const roomSchema = new mongoose.schema({
+const roomSchema = new Schema({
   code: { type: 'String', required: true, unique: true },
-  hostId: { type: 'String' }, // TODO: require later once hosts can be created
-  name: { type: 'String' },
+  hostId: 'String', // TODO: require later once hosts can be created
+  name: 'String',
 }, {timestamps: true});
 
 // TODO: add model helper methods here
