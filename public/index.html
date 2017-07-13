@@ -15,13 +15,15 @@
 
       <ul>
         <h3>Create Room:</h3>
-        <li>Admin only</li>
+        <p>host creates a new room on click</p>
+        <li><input id="hostUsername" type="text" placeholder="username" /></li>
         <li><button id ="start">Start</button></li>
       </ul>
 
       <ul>
         <h3>Join Room:</h3>
-        <li>Enter before chat</li>
+        <p>Enter before chat:</p>
+        <li><input id="username" type="text" placeholder="username" /></li>
         <li><input id="roomCode" type="text" placeholder="enter room code" /></li>
         <li><button id ="enter">Enter</button></li>
       </ul>
@@ -29,8 +31,10 @@
       <ul>
         <h3>Chat:</h3>
         <!-- add room code once joined -->
+        <p>Once logged in:</p>
+        <li>(show room and username here)</li>
         <li id="room"></li>
-        <li><input id="username" type="text" placeholder="username" /></li>
+        <li id="showUsername"/></li>
         <li><input id="message" type="text" placeholder="type message here" /></li>
         <li><button id ="send">Send</button></li>
       </ul>
