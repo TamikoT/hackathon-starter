@@ -10,31 +10,35 @@ var message = document.getElementById('message'),
     roomIn = document.getElementById('room');
     roomCode = document.getElementById('roomCode'); // user input
     startButton = document.getElementById('start');
+    hostUsername = document.getElementById('hostUsername');
 
 // event triggered w/ `start` click - emit to Express server
-startButton.addEventListener('click', function() {
+startButton.addEventListener('click', () => {
   console.log('start button clicked by user');
-  socket.emit('start');
+  socket.emit('start', {
+    'code': ' ',
+    'username': hostUsername.value,
+  });
 });
 
-socket.on('start', function(data) {
-  alert("your room code is" + data.code);
+socket.on('roomCreated', (data) => {
+  console.log("your room code is" + data.code);
 });
 
 // event triggered w/ `enter` click - emit to Express server
-enterButton.addEventListener('click', function() {
+enterButton.addEventListener('click', () => {
   console.log();
   socket.emit('enter', {
     'code': roomCode.value,
   });
 });
 
-socket.on('enter', function(data) {
+socket.on('enter', (data) => {
   alert("you entered" + data.room);
 });
 
 // event triggered w/ `send` click - emit to Express server
-sendButton.addEventListener('click', function() {
+sendButton.addEventListener('click', () => {
   console.log(message.value);
   socket.emit('chat', {
     'room': roomIn.innerHTML,
@@ -47,6 +51,6 @@ sendButton.addEventListener('click', function() {
 });
 
 // event handler to add messages to DOM
-socket.on('chat', function(data) {
+socket.on('chat', (data) => {
   messages.innerHTML += '<li>' + data.username + ': ' + data.message + '</li>';
 });

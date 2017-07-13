@@ -15,6 +15,7 @@ const session = require('express-session'); // generate session data
 const storeSession = require('connect-mongo')(session); // session data storage
 
 var Room = require('./models/Room');
+var User = require('./models/User');
 
 // load API keys
 dotenv.load({ path: '.env' });
@@ -65,25 +66,37 @@ io.on('connection', function(socket) {
   // events emitted from client side
   socket.on('start', function(data){
     // join a room based on user input
-    console.log('start function on server');
-    var code = generateRoomCode();
-    console.log(code);
+    console.log('start event handler server-side');
+    console.log('data in function: ' + data);
 
-    // TODO: do something about if same code happens to be generated
-    // search for generated room code, if it exists already regenerate
+    // create a new User with the username
+    var newUser = new User( {
+      username: data.username,
+      isHost: true,
+    });
+    console.log(newUser);
 
-    var newRoom = new Room({ code }); //  code : generatedCode
-    // console.log(newRoom);
+    data.code = generateRoomCode();
+
+    var newRoom = new Room({
+      code: data.code,
+      _hostID: newUser._id,
+    });
+    console.log(newRoom);
+
     newRoom.save(function (err, newRoom) {
       if (err) return console.error(chalk.bgRed(err));
       console.log('New room ' + newRoom.code + ' created!');
     });
 
+    // TODO: do something if same code happens to be generated
+    // search for generated room code, if it exists, regenerate
+
     // host joins the room themselves after successfully created
     socket.join(newRoom.code);
 
     // emit message back = still just host in the room
-    io.sockets.in(newRoom.code).emit('roomCreated', code);
+    io.sockets.in(newRoom.code).emit('roomCreated', newRoom.code);
   });
 
   socket.on('enter', function(data){
