@@ -12,8 +12,24 @@
       <div id="messages-window">
         <ul id="messages"></ul>
       </div>
+
       <ul>
-        <li><input id="room" type="text" placeholder="enter room code" /></li>
+        <h3>Create Room:</h3>
+        <li>Admin only</li>
+        <li><button id ="start">Start</button></li>
+      </ul>
+
+      <ul>
+        <h3>Join Room:</h3>
+        <li>Enter before chat</li>
+        <li><input id="roomCode" type="text" placeholder="enter room code" /></li>
+        <li><button id ="enter">Enter</button></li>
+      </ul>
+
+      <ul>
+        <h3>Chat:</h3>
+        <!-- add room code once joined -->
+        <li id="room"></li>
         <li><input id="username" type="text" placeholder="username" /></li>
         <li><input id="message" type="text" placeholder="type message here" /></li>
         <li><button id ="send">Send</button></li>

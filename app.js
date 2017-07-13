@@ -27,11 +27,14 @@ server.listen(3000, function() {
 app.use(express.static('public')); // point to location of static files
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
+app.use(flash());
+app.use(errorHandler());
+// app.set('views', path.join(__dirname, 'views'));
 
 // create connection to database - MongoDB w/ Mongoose
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {useMongoClient: true} );
 var db = mongoose.connection;
-db.on('error', function(error) {
+db.on('error', function(err) {
   console.error(chalk.red.bold('Database connection error! Make sure MongoDB is running.'));
   process.exit();
 });
@@ -42,19 +45,42 @@ mongoose.Promise = global.Promise;
 
 // set up websocket our web server - socket.io
 var io = socketIo(server);
-// on socket connection
+
+// makes random 4 letter/number code
+var generateRoomCode = function() {
+  var code = '';
+  var chars = '0123456789ABCDEFGHIJKLMNOPQURSTUVWXYZ';
+  for ( var i = 0; i < 4; i ++ ) {
+    code += chars.substr(Math.floor(Math.random() * (chars.length - 1)), 1);
+  }
+  return code;
+};
+
+// callback for the first time socket is made
 io.on('connection', function(socket) {
   console.log(chalk.bgBlue('-> socket opened: ' + socket.id));
-  // emitted from client side
-  socket.on('chat', function(data){
+
+  // events emitted from client side
+  socket.on('start', function(data){
     // join a room based on user input
-    socket.join(data.room);
+    console.log('start function on server');
+    var generatedCode = generateRoomCode();
+    console.log(generatedCode);
+  });
+
+  socket.on('enter', function(data){
+    // join a room based on user input
+    socket.join(data.code);
     console.log(data.username + " joined Room " + data.room);
+  });
+
+  socket.on('chat', function(data){
     // sending data back to ALL sockets
     io.sockets.in(data.room).emit('chat', data);
   });
 });
 
-// CONTROLLERS
-
-// ROUTES
+// STATIC ROUTES
+// app.get('/', homeController.index);
+// app.get('/room', roomController.index);
+// app.post('/room', roomController.index);
