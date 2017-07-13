@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const sinonMongoose = require('sinon-mongoose');
 
-const Room = require('../models/Room');
+var Room = require('../models/Room');
 
 describe('Room Model', () => {
   it('should create a new room', (done) => {

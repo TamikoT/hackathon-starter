@@ -14,6 +14,8 @@ const mongoose = require('mongoose'); // mongodb object modeling
 const session = require('express-session'); // generate session data
 const storeSession = require('connect-mongo')(session); // session data storage
 
+var Room = require('./models/Room');
+
 // load API keys
 dotenv.load({ path: '.env' });
 
@@ -64,8 +66,24 @@ io.on('connection', function(socket) {
   socket.on('start', function(data){
     // join a room based on user input
     console.log('start function on server');
-    var generatedCode = generateRoomCode();
-    console.log(generatedCode);
+    var code = generateRoomCode();
+    console.log(code);
+
+    // TODO: do something about if same code happens to be generated
+    // search for generated room code, if it exists already regenerate
+
+    var newRoom = new Room({ code }); //  code : generatedCode
+    // console.log(newRoom);
+    newRoom.save(function (err, newRoom) {
+      if (err) return console.error(chalk.bgRed(err));
+      console.log('New room ' + newRoom.code + ' created!');
+    });
+
+    // host joins the room themselves after successfully created
+    socket.join(newRoom.code);
+
+    // emit message back = still just host in the room
+    io.sockets.in(newRoom.code).emit('roomCreated', code);
   });
 
   socket.on('enter', function(data){

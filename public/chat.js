@@ -11,7 +11,7 @@ var message = document.getElementById('message'),
     roomCode = document.getElementById('roomCode'); // user input
     startButton = document.getElementById('start');
 
-// event triggered w/ `enter` click - emit to Express server
+// event triggered w/ `start` click - emit to Express server
 startButton.addEventListener('click', function() {
   console.log('start button clicked by user');
   socket.emit('start');
