@@ -22,7 +22,7 @@ startButton.addEventListener('click', () => {
 });
 
 socket.on('roomCreated', (data) => {
-  console.log("your room code is" + data.code);
+  console.log("your room code is" + " " + data.code);
 });
 
 // event triggered w/ `enter` click - emit to Express server

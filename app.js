@@ -76,6 +76,11 @@ io.on('connection', function(socket) {
     });
     console.log(newUser);
 
+    newUser.save(function (err, newUser) {
+      if (err) return console.error(chalk.bgRed(err));
+      // console.log('New room ' + newUser.username + ' created!');
+    });
+
     data.code = generateRoomCode();
 
     var newRoom = new Room({
@@ -85,18 +90,18 @@ io.on('connection', function(socket) {
     console.log(newRoom);
 
     newRoom.save(function (err, newRoom) {
-      if (err) return console.error(chalk.bgRed(err));
-      console.log('New room ' + newRoom.code + ' created!');
+      if (!err) {
+        // host joins the room themselves after successfully created
+        socket.join(newRoom.code);
+        console.log('New room ' + newRoom.code + ' created!');
+        // emit message back = still just host in the room
+        io.sockets.in(newRoom.code).emit('roomCreated', data);
+      } else {
+      return console.error(chalk.bgRed(err));
+      // TODO: do something if same code happens to be generated
+      // search for generated room code, if it exists, regenerate
+      }
     });
-
-    // TODO: do something if same code happens to be generated
-    // search for generated room code, if it exists, regenerate
-
-    // host joins the room themselves after successfully created
-    socket.join(newRoom.code);
-
-    // emit message back = still just host in the room
-    io.sockets.in(newRoom.code).emit('roomCreated', newRoom.code);
   });
 
   socket.on('enter', function(data){
