@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var User = require('./User');
 
 const roomSchema = new Schema({
-  _id: String,
   code: { type: String, required: true, unique: true },
-  // TODO: require later once hosts can be created  _hostID: { type: String, ref: User },
+  // TODO: require later once hosts can be created
+  _hostID: { type: String, ref: User },
 }, {timestamps: true});
 
 // TODO: add model helper methods here
