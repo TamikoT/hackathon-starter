@@ -11,30 +11,35 @@ var message = document.getElementById('message'),
     roomCode = document.getElementById('roomCode'); // user input
     startButton = document.getElementById('start');
     hostUsername = document.getElementById('hostUsername');
+    username = document.getElementById('username');
+    showUsername = document.getElementById('showUsername');
+    showRoom = document.getElementById('showRoom');
 
 // event triggered w/ `start` click - emit to Express server
 startButton.addEventListener('click', () => {
   console.log('start button clicked by user');
   socket.emit('start', {
-    'code': ' ',
+    'code': undefined,
     'username': hostUsername.value,
   });
 });
 
 socket.on('roomCreated', (data) => {
-  console.log("your room code is" + " " + data.code);
+  console.log('your room code is' + ' ' + data.code);
 });
 
 // event triggered w/ `enter` click - emit to Express server
 enterButton.addEventListener('click', () => {
-  console.log();
+  console.log('enter button clicked by user');
   socket.emit('enter', {
+    'username': username.value,
     'code': roomCode.value,
   });
 });
 
 socket.on('enter', (data) => {
-  alert("you entered" + data.room);
+  console.log('you entered' + data.room);
+
 });
 
 // event triggered w/ `send` click - emit to Express server
