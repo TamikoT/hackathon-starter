@@ -23,16 +23,25 @@ dotenv.load({ path: '.env' });
 // create new app w/ web server - Express
 var app = express();
 var server = http.createServer(app);
-server.listen(3000, function() {
-  console.log(chalk.yellow('listening on *:3000'));
-});
+
 // Express setup
 app.use(express.static('public')); // point to location of static files
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
 app.use(flash());
 app.use(errorHandler());
 // app.set('views', path.join(__dirname, 'views'));
+
+app.get('/', function (req, res) {
+  res.send('GET request to the homepage');
+});
+
+app.get('/test', function (req, res) {
+  res.send('GET request to the homepage');
+});
+
+server.listen(3000, function() {
+  console.log(chalk.yellow('listening on *:3000'));
+});
 
 // create connection to database - MongoDB w/ Mongoose
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {useMongoClient: true} );
@@ -105,9 +114,47 @@ io.on('connection', function(socket) {
   });
 
   socket.on('enter', function(data){
-    // join a room based on user input
-    socket.join(data.code);
-    console.log(data.username + " joined Room " + data.room);
+    // ENTER a room based on user input
+
+    var roomQuery = {'code': data.code};
+
+    // check if room already exists on database
+    var foundRoom = Room.find(
+      roomQuery, // query from input
+      function(err, room) { // callback
+        if (err) {
+          return errorHandler(err);
+        } else if (room.length > 0) {
+          console.log(room);
+          return room;
+        } else {
+          console.log('oops, room not found');
+          // TODO: alert user and prompt to re-enter info
+        }
+      }
+    );
+
+    // if the room exists, create a new User in the room
+    if ( foundRoom.length > 0 ) {
+      console.log(foundRoom[0]);
+      socket.join(data.code);
+      // create a new User with the username
+      var newUser = new User( {
+        username: data.username,
+        isHost: false,
+      });
+      console.log(data.username + " joined Room " + data.code);
+    }
+
+    // create a new User with the username
+    var newUser = new User( {
+      username: data.username,
+      isHost: false,
+    });
+    console.log(newUser);
+    newUser.save(function (err, newUser) {
+      if (err) return console.error(chalk.bgRed(err));
+    });
   });
 
   socket.on('chat', function(data){
