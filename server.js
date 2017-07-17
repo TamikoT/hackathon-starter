@@ -39,8 +39,8 @@ app.get('/test', function (req, res) {
   res.send('GET request to the homepage');
 });
 
-server.listen(3000, function() {
-  console.log(chalk.yellow('listening on *:3000'));
+server.listen(3001, function() {
+  console.log(chalk.yellow('listening on *:3001'));
 });
 
 // create connection to database - MongoDB w/ Mongoose

@@ -9,13 +9,16 @@
   "author": "Tamiko Terada",
   "license": "",
   "scripts": {
-    "start": "node app.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server.js",
+    "client": "nodemon start-client.js",
     "reset": "rm -rf node_modules/",
     "test": "mocha --reporter spec",
     "postinstall": "npm rebuild node-sass",
     "lint": "eslint **/*.js"
   },
   "dependencies": {
+    "babel-core": "^6.25.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
@@ -42,10 +45,13 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "concurrently": "^3.5.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-chai-friendly": "^0.2.0",
     "eslint-plugin-import": "^2.1.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.1.2",
     "sinon": "^1.17.7",
     "sinon-mongoose": "^1.3.0",
