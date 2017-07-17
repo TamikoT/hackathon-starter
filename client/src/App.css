@@ -1,3 +1,22 @@
+ul {
+  list-style: none;
+  padding: none;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+.console-log {
+  color: pink;
+  font-style: italic;
+}
+
+.active {
+  font-weight: bold;
+}
+
 .App {
   text-align: center;
 }
