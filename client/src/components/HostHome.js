@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Host extends Component {
+class HostHome extends Component {
   render() {
     return (
       <section className="host-component">
@@ -15,4 +15,4 @@ class Host extends Component {
   }
 }
 
-export default Host;
+export default HostHome;

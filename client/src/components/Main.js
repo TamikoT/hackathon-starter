@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Host from './Host';
+import HostHome from './HostHome';
 import User from './User';
 import Home from './Home';
 import About from './About';
@@ -12,7 +12,7 @@ class Main extends Component {
         <p className="console-log">inside main</p>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/host' component={Host} />
+            <Route path='/host' component={HostHome} />
             <Route path='/user' component={User} />
             <Route path='/about' component={About} />
           </Switch>
