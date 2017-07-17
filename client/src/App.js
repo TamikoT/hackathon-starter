@@ -8,11 +8,17 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Welcome to Muviato</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To get started, create or join a room.
         </p>
+        <div>
+          <button className="Button-newroom">Join a Room</button>
+        </div>
+        <div>
+          <button className="Button-newroom">Create New Room</button>
+        </div>
       </div>
     );
   }
