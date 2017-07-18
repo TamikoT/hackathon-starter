@@ -2,7 +2,7 @@
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const chalk = require('chalk'); // colors for terminal
-// web server
+// server
 const express = require('express'); // web app framework
 const http = require('http'); // data transfer over HTTP (built-in)
 const socketIo = require('socket.io'); // create websockets
@@ -10,40 +10,29 @@ const errorHandler = require('errorhandler'); // handle server errors
 const path = require('path'); // directory paths (built-in)
 const flash = require('express-flash'); // flash without redirect
 const port = process.env.PORT || 3001;
-// database
+// data
 const mongoose = require('mongoose'); // mongodb object modeling
 const session = require('express-session'); // generate session data
 const storeSession = require('connect-mongo')(session); // session data storage
-
-// load API keys
+// secrets
 dotenv.load({ path: '.env' });
 
-// create new app w/ web server - Express
+// SERVER SETUP | EXPRESS
 const app = express();
 const server = http.createServer(app);
-
-// Express setup
 // app.use(express.static('public')); // point to location of static files
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
-// set up routes through router.js
-var router = require('./api/router');
-app.use('/api', router);
-// re-route to /api always
-app.get('/', function(req, res) {
-  res.redirect('/api');
-});
-
-
-app.use(function(req, res) {
-  res.status(404).send({ url: req.originalUrl + ' not found' });
-});
 app.use(flash());
 app.use(errorHandler());
 
+
+// DATABASE SETUP | MONGO-DB
+// define database outside of callback
+var db;
 // create connection to database - MongoDB w/ Mongoose
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {useMongoClient: true} );
-var db = mongoose.connection;
+db = mongoose.connection;
 db.on('error', function(err) {
   console.error(chalk.red.bold('Database connection error! Make sure MongoDB is running.'));
   process.exit();
@@ -53,14 +42,36 @@ db.once('open', function() {
 });
 mongoose.Promise = global.Promise;
 
+// ROUTES SETUP
+// re-route `/`` to `/api`
+app.get('/', function(req, res) {
+  res.redirect('/api');
+});
+
+app.get('/api', function(req, res) {
+  res.send('API for Muviato');
+});
+
+var Room = require('./api/models/Room');
+
+app.get("/api/rooms", function(req, res) {
+  Room.find({}, function(err, room) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(room);
+  });
+});
+
+app.post("/api/rooms", function(req, res) {
+});
+
+
 server.listen(port, function() {
   console.log(chalk.yellow('listening on *:3001'));
 });
 
-
-
-
-
+// WEBSOCKET SETUP | SOCKET.IO
 // set up websocket our web server - socket.io
 var io = socketIo(server);
 
