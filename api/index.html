@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Muviato-API</title>
+  </head>
+  <body>
+    <section>
+      <h3>Endpoints</h3>
+      <p>GET /pets returns all pets</p>
+      <p>GET /pets/1 returns information on specific pet, by id</p>
+      <p>POST /pets - Create a new pet</p>
+      <ul>
+        <li>Acceptable Params:</li>
+        <li>name: string</li>
+        <li>breed: string</li>
+        <li>age: integer</li>
+        <li>about: string</li>
+        <li>vaccinated: boolean</li>
+      </ul>
+      <p>PUT /pets/1/vaccinated - update status of vaccination of a specific pet, by id</p>
+      <ul>Acceptable Params:</ul>
+        <li>Acceptable Params:</li>
+        <li>vaccinated: boolean</li>
+      <p>PUT /pets/1/dibs - update pet with owner, by pet id</p>
+        Acceptable Params:
+        owner: string
+      <p>DELETE /pets/1 to delete a pet, by id</p>
+    </section>
+
+  </body>
+</html>

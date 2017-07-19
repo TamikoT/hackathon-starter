@@ -49,10 +49,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api', function(req, res) {
-  res.send('API for Muviato');
+  res.render(require('./api/index'));
 });
 
 var Room = require('./api/models/Room');
+var User = require('./api/models/User');
 
 app.get("/api/rooms", function(req, res) {
   Room.find({}, function(err, room) {
@@ -66,6 +67,17 @@ app.get("/api/rooms", function(req, res) {
 app.post("/api/rooms", function(req, res) {
 });
 
+app.get("/api/users", function(req, res) {
+  User.find({}, function(err, room) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(room);
+  });
+});
+
+app.post("/api/users", function(req, res) {
+});
 
 server.listen(port, function() {
   console.log(chalk.yellow('listening on *:3001'));
