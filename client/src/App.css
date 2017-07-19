@@ -1,3 +1,22 @@
+ul {
+  list-style: none;
+  padding: none;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+.console-log {
+  color: pink;
+  font-style: italic;
+}
+
+.active {
+  font-weight: bold;
+}
+
 .App {
   text-align: center;
 }
@@ -21,4 +40,22 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.section {
+  display: inline-block;
+  max-width: $column-width;
+  margin: $gutter-width;
+  text-align: left;
+  vertical-align: top;
+}
+
+.player-wrapper {
+  width: 480px;
+  height: 270px;
+}
+
+.react-player {
+  margin-bottom: 10px;
+  background: rgba($black, .1);
 }

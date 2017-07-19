@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Muviato-API</title>
+  </head>
+  <body>
+    <section>
+      <h1>Muviato-API</h1>
+      <h2>Available Endpoints</h2>
+      <h3>Users</h3>
+        <h4>Acceptable Params:</h4>
+        <ul>
+          <li>username: string</li>
+          <li>isHost: boolean</li>
+        </ul>
+        <p>GET /users returns all users</p>
+        <p>POST /users - creates a new user</p>
+        <p>GET /users/:id finds an user by id</p>
+        <p>PUT /users/:id updates existing user
+        <p>DELETE /users/:id to delete a room by id</p>
+
+      <h3>Rooms</h3>
+        <h4>Acceptable Params:</h4>
+        <ul>
+          <li>code: string</li>
+          <li>_hostID: string</li>
+        </ul>
+        <p>GET /rooms returns all rooms</p>
+        <p>POST /rooms - creates a new room</p>
+        <p>GET /rooms/:id finds a room by id</p>
+        <p>PUT /rooms/:id updates existing room
+        <p>DELETE /pets/1 to delete a room by id</p>
+    </section>
+  </body>
+</html>

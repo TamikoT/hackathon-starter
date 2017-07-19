@@ -10,7 +10,7 @@
   "license": "",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server.js",
+    "server": "nodemon api/server.js",
     "client": "nodemon start-client.js",
     "reset": "rm -rf node_modules/",
     "test": "mocha --reporter spec",

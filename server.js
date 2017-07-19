@@ -2,50 +2,37 @@
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const chalk = require('chalk'); // colors for terminal
-// web server
+// server
 const express = require('express'); // web app framework
 const http = require('http'); // data transfer over HTTP (built-in)
 const socketIo = require('socket.io'); // create websockets
 const errorHandler = require('errorhandler'); // handle server errors
 const path = require('path'); // directory paths (built-in)
 const flash = require('express-flash'); // flash without redirect
-// database
+const port = process.env.PORT || 3001;
+// data
 const mongoose = require('mongoose'); // mongodb object modeling
 const session = require('express-session'); // generate session data
 const storeSession = require('connect-mongo')(session); // session data storage
-
-var Room = require('./models/Room');
-var User = require('./models/User');
-
-// load API keys
+// secrets
 dotenv.load({ path: '.env' });
 
-// create new app w/ web server - Express
-var app = express();
-var server = http.createServer(app);
-
-// Express setup
-app.use(express.static('public')); // point to location of static files
+// SERVER SETUP | EXPRESS
+const app = express();
+const server = http.createServer(app);
+// app.use(express.static('public')); // point to location of static files
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
 app.use(flash());
 app.use(errorHandler());
-// app.set('views', path.join(__dirname, 'views'));
 
-app.get('/', function (req, res) {
-  res.send('GET request to the homepage');
-});
 
-app.get('/test', function (req, res) {
-  res.send('GET request to the homepage');
-});
-
-server.listen(3001, function() {
-  console.log(chalk.yellow('listening on *:3001'));
-});
-
+// DATABASE SETUP | MONGO-DB
+// define database outside of callback
+var db;
 // create connection to database - MongoDB w/ Mongoose
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {useMongoClient: true} );
-var db = mongoose.connection;
+db = mongoose.connection;
 db.on('error', function(err) {
   console.error(chalk.red.bold('Database connection error! Make sure MongoDB is running.'));
   process.exit();
@@ -55,6 +42,48 @@ db.once('open', function() {
 });
 mongoose.Promise = global.Promise;
 
+// ROUTES SETUP
+// re-route `/`` to `/api`
+app.get('/', function(req, res) {
+  res.redirect('/api');
+});
+
+app.get('/api', function(req, res) {
+  res.render(require('./api/index'));
+});
+
+var Room = require('./api/models/Room');
+var User = require('./api/models/User');
+
+app.get("/api/rooms", function(req, res) {
+  Room.find({}, function(err, room) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(room);
+  });
+});
+
+app.post("/api/rooms", function(req, res) {
+});
+
+app.get("/api/users", function(req, res) {
+  User.find({}, function(err, room) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(room);
+  });
+});
+
+app.post("/api/users", function(req, res) {
+});
+
+server.listen(port, function() {
+  console.log(chalk.yellow('listening on *:3001'));
+});
+
+// WEBSOCKET SETUP | SOCKET.IO
 // set up websocket our web server - socket.io
 var io = socketIo(server);
 
@@ -144,17 +173,11 @@ io.on('connection', function(socket) {
         isHost: false,
       });
       console.log(data.username + " joined Room " + data.code);
+      console.log(newUser);
+      newUser.save(function (err, newUser) {
+        if (err) return console.error(chalk.bgRed(err));
+      });
     }
-
-    // create a new User with the username
-    var newUser = new User( {
-      username: data.username,
-      isHost: false,
-    });
-    console.log(newUser);
-    newUser.save(function (err, newUser) {
-      if (err) return console.error(chalk.bgRed(err));
-    });
   });
 
   socket.on('chat', function(data){
@@ -162,8 +185,3 @@ io.on('connection', function(socket) {
     io.sockets.in(data.room).emit('chat', data);
   });
 });
-
-// STATIC ROUTES
-// app.get('/', homeController.index);
-// app.get('/room', roomController.index);
-// app.post('/room', roomController.index);
