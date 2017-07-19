@@ -35,4 +35,11 @@ router.get('/:id', function (req, res) {
     });
 });
 
+router.delete('/:id', function (req, res) {
+    Room.findByIdAndRemove(req.params.id, function (err, user) {
+        if (err) return res.status(500).send("There was a problem deleting the room.");
+        res.status(200).send("Room "+ Room.code +" was deleted.");
+    });
+});
+
 module.exports = router;
