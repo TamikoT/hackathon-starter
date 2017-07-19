@@ -6,27 +6,31 @@
   </head>
   <body>
     <section>
-      <h3>Endpoints</h3>
-      <p>GET /pets returns all pets</p>
-      <p>GET /pets/1 returns information on specific pet, by id</p>
-      <p>POST /pets - Create a new pet</p>
-      <ul>
-        <li>Acceptable Params:</li>
-        <li>name: string</li>
-        <li>breed: string</li>
-        <li>age: integer</li>
-        <li>about: string</li>
-        <li>vaccinated: boolean</li>
-      </ul>
-      <p>PUT /pets/1/vaccinated - update status of vaccination of a specific pet, by id</p>
-      <ul>Acceptable Params:</ul>
-        <li>Acceptable Params:</li>
-        <li>vaccinated: boolean</li>
-      <p>PUT /pets/1/dibs - update pet with owner, by pet id</p>
-        Acceptable Params:
-        owner: string
-      <p>DELETE /pets/1 to delete a pet, by id</p>
-    </section>
+      <h1>Muviato-API</h1>
+      <h2>Available Endpoints</h2>
+      <h3>Users</h3>
+        <h4>Acceptable Params:</h4>
+        <ul>
+          <li>username: string</li>
+          <li>isHost: boolean</li>
+        </ul>
+        <p>GET /users returns all users</p>
+        <p>POST /users - creates a new user</p>
+        <p>GET /users/:id finds an user by id</p>
+        <p>PUT /users/:id updates existing user
+        <p>DELETE /users/:id to delete a room by id</p>
 
+      <h3>Rooms</h3>
+        <h4>Acceptable Params:</h4>
+        <ul>
+          <li>code: string</li>
+          <li>_hostID: string</li>
+        </ul>
+        <p>GET /rooms returns all rooms</p>
+        <p>POST /rooms - creates a new room</p>
+        <p>GET /rooms/:id finds a room by id</p>
+        <p>PUT /rooms/:id updates existing room
+        <p>DELETE /pets/1 to delete a room by id</p>
+    </section>
   </body>
 </html>
