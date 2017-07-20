@@ -1,9 +1,34 @@
-## Movie Chat App
+# Movie Chat App
 
+WIP :: Real-time application build with the MERN stack.
 (more info to be added)
 
+### *Features*
 
-=======================
+### *Demo*
+
+### *Setup*
+1. Run  `git clone https://github.com/TamikoT/movie-chat-app`
+1. Run `npm install`
+1. Run `npm start`
+
+### *Tech Used*
+
+| NAME	       | DESCRIPTION |
+|--------------|-------------|
+| ReactJS      | views |
+| React Router | universal routing |
+| Redux	       | state management |
+| MongoDB	     | NoSQL database |
+| Express	     | web server framework |
+| Socket.io	   | websockets for server-client |
+| Webpack	     | bundle + transpile |
+
+### References
+
+---------------------
+## Hackathon-Starter
+
 App built on hackathon-starter boilderplate: https://github.com/sahat/hackathon-starter
 
 
