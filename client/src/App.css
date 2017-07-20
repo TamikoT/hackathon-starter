@@ -8,6 +8,11 @@ a {
   color: blue;
 }
 
+.chat-window-component {
+  border: medium dashed green;
+  background-color: yellow;
+}
+
 .console-log {
   color: pink;
   font-style: italic;
