@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import * as SocketIOClient from 'socket.io-client';
 import './App.css';
-
+import React, { Component } from 'react';
 // import components
 import NavBar from './components/NavBar';
 import Main from './components/Main';
+import io from 'socket.io-client';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    // open socket on initialization
+    // make client-side connection with Express server
+    // var socket = io.connect('http://localhost:3000');
     if (this.io === undefined) {
-      this.io = SocketIOClient.connect('http://localhost:3001');
+      this.io = io.connect('http://localhost:3001');
 
       this.io.on('data_change', (data) => {
         const actionType = `DATA_CHANGED_${data.type.toUpperCase()}`;
