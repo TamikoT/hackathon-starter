@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class HostHome extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <section className="host-component">

@@ -4,8 +4,12 @@ import HostHome from './HostHome';
 import User from './User';
 import Home from './Home';
 import About from './About';
+import ChatWindow from './ChatWindow';
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <section className="home-component">
@@ -15,6 +19,7 @@ class Main extends Component {
             <Route path='/host' component={HostHome} />
             <Route path='/user' component={User} />
             <Route path='/about' component={About} />
+            <Route path='/demo' component={ChatWindow} />
           </Switch>
       </section>
     )

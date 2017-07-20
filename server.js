@@ -44,12 +44,9 @@ mongoose.Promise = global.Promise;
 
 // ROUTES SETUP
 // re-route `/`` to `/api`
-app.get('/', function(req, res) {
-  res.redirect('/api');
-});
 
 app.get('/api', function(req, res) {
-  res.render(require('./api/index'));
+  res.sendFile(path.join(__dirname + 'api/index.html'));
 });
 
 var Room = require('./api/models/Room');
@@ -79,9 +76,6 @@ app.get("/api/users", function(req, res) {
 app.post("/api/users", function(req, res) {
 });
 
-server.listen(port, function() {
-  console.log(chalk.yellow('listening on *:3001'));
-});
 
 // WEBSOCKET SETUP | SOCKET.IO
 // set up websocket our web server - socket.io
@@ -184,4 +178,9 @@ io.on('connection', function(socket) {
     // sending data back to ALL sockets
     io.sockets.in(data.room).emit('chat', data);
   });
+});
+
+
+server.listen(port, function() {
+  console.log(chalk.yellow('listening on *:3001'));
 });
