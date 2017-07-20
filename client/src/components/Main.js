@@ -7,9 +7,9 @@ import About from './About';
 import ChatWindow from './ChatWindow';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   render() {
     return (
       <section className="home-component">
