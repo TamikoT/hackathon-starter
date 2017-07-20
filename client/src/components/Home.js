@@ -10,11 +10,19 @@ class Home extends Component {
       <section className="home-component">
         <p className="console-log">inside home</p>
         <h2>Welcome to Muviato!</h2>
+        <ul>
+          <li>
+            <label>your sweet username: </label>
+            <input id="hostUsername" type="text" placeholder="make a username" />
+          </li>
+          <li>
+            <label>the secret code, please: </label>
+            <input id="roomCode" type="text" placeholder="room code" />
+            <Link to='/user'><button>Enter</button></Link>
+          </li>
+        </ul>
         <div>
-          <Link to='/user'><button>join a room</button></Link>
-        </div>
-        <div>
-          <Link to='/host'><button>create a room</button></Link>
+          <Link to='/host'>create a new room</Link>
         </div>
       </section>
     )

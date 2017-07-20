@@ -7,12 +7,14 @@ class HostHome extends Component {
   render() {
     return (
       <section className="host-component">
+        <h3>Your Room Code: </h3>
+        <p>(please share with your people)</p>
+        <h4>Video Player Settings</h4>
         <ul>
-          <h3>Create Room:</h3>
-          <p>host creates a new room on click</p>
-          <li><input id="hostUsername" type="text" placeholder="username" /></li>
-          <li><button id ="start">Start</button></li>
+          <li>Setting 1:</li>
+          <li>Setting 2:</li>
         </ul>
+        <button>Open Video Player</button>
       </section>
     )
   }

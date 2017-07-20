@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-class Message extends Component {
+class ChatMessage extends Component {
   // constructor(props) {
   //   super(props);
   // }
   render() {
     return (
-      <section className="message-component">
+      <section className="chat-message-component">
         <p className="console-log">inside message</p>
         <h2>Message</h2>
       </section>
@@ -14,4 +14,4 @@ class Message extends Component {
   }
 }
 
-export default Message;
+export default ChatMessage;
