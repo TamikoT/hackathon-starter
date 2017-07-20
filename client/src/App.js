@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 // import components
-import NavBar from './components/NavBar';
+import Header from './components/Header';
 import Main from './components/Main';
 import io from 'socket.io-client';
 
@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar/>
+        <Header/>
         <Main>
           {this.props.children}
         </Main>

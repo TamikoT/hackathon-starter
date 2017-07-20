@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
-class NavBar extends Component {
+class Header extends Component {
   // constructor(props) {
   //   super(props);
   // }
   render() {
     return (
-      <section className='nav-component'>
+      <section className='header-component'>
         <nav  className='nav'>
           <ul>
             <li>
@@ -30,4 +30,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default Header;
