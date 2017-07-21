@@ -1,5 +1,5 @@
 // DEPENDENCIES
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 const chalk = require('chalk'); // colors for terminal
 // server
@@ -9,18 +9,16 @@ const socketIo = require('socket.io'); // create websockets
 const errorHandler = require('errorhandler'); // handle server errors
 const path = require('path'); // directory paths (built-in)
 const flash = require('express-flash'); // flash without redirect
-const port = process.env.PORT || 3001;
+const port = 3000;
 // data
 const mongoose = require('mongoose'); // mongodb object modeling
 const session = require('express-session'); // generate session data
 const storeSession = require('connect-mongo')(session); // session data storage
-// secrets
-dotenv.load({ path: '.env' });
 
 // SERVER SETUP | EXPRESS
 const app = express();
 const server = http.createServer(app);
-// app.use(express.static('public')); // point to location of static files
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
 app.use(flash());
@@ -42,39 +40,41 @@ db.once('open', function() {
 });
 mongoose.Promise = global.Promise;
 
+app.use(express.static('z-old-client')); // point to location of static files
+
 // ROUTES SETUP
 // re-route `/`` to `/api`
 
-app.get('/api', function(req, res) {
-  res.sendFile(path.join(__dirname + 'api/index.html'));
-});
-
-var Room = require('./api/models/Room');
-var User = require('./api/models/User');
-
-app.get("/api/rooms", function(req, res) {
-  Room.find({}, function(err, room) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(room);
-  });
-});
-
-app.post("/api/rooms", function(req, res) {
-});
-
-app.get("/api/users", function(req, res) {
-  User.find({}, function(err, room) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(room);
-  });
-});
-
-app.post("/api/users", function(req, res) {
-});
+// app.get('/api', function(req, res) {
+//   res.sendFile(path.join(__dirname + 'api/index.html'));
+// });
+//
+// var Room = require('./api/models/Room');
+// var User = require('./api/models/User');
+//
+// app.get("/api/rooms", function(req, res) {
+//   Room.find({}, function(err, room) {
+//     if (err) {
+//       res.send(err);
+//     }
+//     res.json(room);
+//   });
+// });
+//
+// app.post("/api/rooms", function(req, res) {
+// });
+//
+// app.get("/api/users", function(req, res) {
+//   User.find({}, function(err, room) {
+//     if (err) {
+//       res.send(err);
+//     }
+//     res.json(room);
+//   });
+// });
+//
+// app.post("/api/users", function(req, res) {
+// });
 
 
 // WEBSOCKET SETUP | SOCKET.IO
@@ -182,5 +182,5 @@ io.on('connection', function(socket) {
 
 
 server.listen(port, function() {
-  console.log(chalk.yellow('listening on *:3001'));
+  console.log(chalk.yellow('listening on ' + port));
 });
