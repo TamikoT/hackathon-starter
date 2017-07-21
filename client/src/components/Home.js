@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as userActions from '../actions/userActions'
 
 class Home extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props){
+    super(props);
+    this.handleOnClick = this.handleOnClick.bind(this);
+    this.state = {
+      input: ''
+    };
+  }
+
+  handleOnClick(event){
+    event.preventDefault();
+    console.log('user clicked `enter` button');
+    this.props.newUser(this.state.input);
+    this.setState({ input: ''});
+  }
+
   render() {
     return (
       <section className="home-component">
@@ -18,7 +32,7 @@ class Home extends Component {
           <li>
             <label>the secret code, please: </label>
             <input id="roomCode" type="text" placeholder="room code" />
-            <Link to='/user'><button>Enter</button></Link>
+            <Link to='/user' onClick={this.handleOnClick}><button>Enter</button></Link>
           </li>
         </ul>
         <div>
@@ -29,4 +43,16 @@ class Home extends Component {
   }
 }
 
-export default Home;
+function mapStateToProps(state, ownProps){
+  return { user: state.user }
+}
+
+function mapDispatchToProps(dispatch){
+ return {
+   newUser: (user) => {
+    dispatch(userActions.newUser(user))
+  }
+ }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
