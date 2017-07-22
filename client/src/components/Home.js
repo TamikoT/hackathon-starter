@@ -19,6 +19,10 @@ class Home extends Component {
     console.log(this.state.username);
     console.log(this.state.code);
 
+    fetch('http://localhost:3001/api/users', {
+      method: 'get'
+    }).then(function(response) {}).catch(function(err) {});
+
     // action to create a new user
     this.props.newUser(this.state.username);
 

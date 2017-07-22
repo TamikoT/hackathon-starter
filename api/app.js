@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler'); // handle server errors
 const path = require('path'); // directory paths (built-in)
 const flash = require('express-flash'); // flash without redirect
+const cors = require('cors');
 
 dotenv.config();
 
@@ -21,6 +22,12 @@ db = mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
 mongoose.Promise = global.Promise;
 
+// release access to API by my frontend
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body
 app.use(flash());
