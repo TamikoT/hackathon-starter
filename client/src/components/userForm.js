@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 
 class userForm extends Component {
-  constructor(props){
-    super(props);
-  }
 
   renderField(field) {
     // adds event handlers for fields
     return (
-      <div>
+      <div className="form-group">
         <li>
           <label>{field.label}</label>
           <input
             type="text"
             {...field.input} />
         </li>
+        {field.meta.error}
       </div>
     );
   }
 
+  onSubmit(values) {
+    console.log(values);
+  }
   // add one field with redux-form for each input
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           name="username"
           label="your sweet username: "
           component={this.renderField}
         />
         <Field
-          name="room"
+          name="code"
           label="secret code, please: "
           component={this.renderField}
         />
+        <button type='submit'>Enter</button>
       </form>
     )
   }
