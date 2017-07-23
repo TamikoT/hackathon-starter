@@ -20,14 +20,18 @@ class Home extends Component {
     console.log(this.state.code);
 
     fetch('http://localhost:3001/api/users', {
-      method: 'get'
-    }).then(function(response) {}).catch(function(err) {});
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        username: this.state.username
+      })
+    }).then(function(response) { return response.json(); } )
+      .catch(function(err) { "something went wrong"; });
 
     // action to create a new user
     this.props.newUser(this.state.username);
 
     // add user to a room
-
     this.setState({ username: '', code: ''});
   }
 
