@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as userActions from '../actions/userActions'
+import * as userActions from '../actions/userActions';
 import ChatWindow from './ChatWindow';
+import { Field, reduxForm } from 'redux-form';
 
 class Home extends Component {
   constructor(props){
