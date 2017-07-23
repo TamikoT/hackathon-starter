@@ -20,6 +20,7 @@ class Main extends Component {
             <Route path='/about' component={About} />
             <Route path='/demo' component={ChatWindow} />
             <Route path='/video' component={VideoPlayer} />
+            <Route path='/chat' component={ChatWindow} />
           </Switch>
       </section>
     )

@@ -6,6 +6,9 @@ import Main from './components/Main';
 const io = require('socket.io-client');
 
 
+// because router component expects only one child
+// create App component that renders everything
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +21,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <Main />
+        <Main/>
       </div>
     )
   }
