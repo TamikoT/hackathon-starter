@@ -39,8 +39,23 @@ class userForm extends Component {
   }
 }
 
-function validate() {
+function validate(values) {
+  console.log(values);
+  const errors = {};
 
+  // validate the inputs and show validation errors to the user
+  if (!values.username) {
+    errors.username = "Needs a username!";
+  }
+
+  if (!values.code) {
+    errors.code = "Must enter room code!"
+  }
+
+  // TODO: add extra validations for valid username + room
+
+  // redux-form: if errors is empty then the form is fine to submit
+  return errors;
 }
 
 export default reduxForm({
