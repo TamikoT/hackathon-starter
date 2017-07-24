@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import HostHome from './HostHome';
-import Home from './Home';
 import About from './About';
 import ChatWindow from './ChatWindow';
 import UserForm from './UserForm';
@@ -18,7 +17,6 @@ class Main extends Component {
             <Route path='/demo' component={ChatWindow} />
             <Route path='/video' component={VideoPlayer} />
             <Route path='/chat' component={ChatWindow} />
-            <Route path='/home' component={Home} />
           </Switch>
       </section>
     )

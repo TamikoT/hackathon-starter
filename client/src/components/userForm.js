@@ -25,7 +25,7 @@ class UserForm extends Component {
 
   onSubmit(values) {
     console.log(values);
-      
+
   }
 
   // add one field with redux-form for each input
@@ -47,9 +47,9 @@ class UserForm extends Component {
           />
           <button type='submit' className="btn btn-primary">Enter</button>
         </form>
-        <nav>
-          <Link to='/host'>create a new room</Link>
-        </nav>
+        <div>
+          <Link to='/host'>create a new room as a host</Link>
+        </div>
       </section>
     )
   }
