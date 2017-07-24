@@ -24,11 +24,6 @@ class Header extends Component {
                 About
               </NavLink>
             </li>
-            <li role="presentation">
-              <NavLink activeClassName='active' to='/demo'>
-                Demo
-              </NavLink>
-            </li>
           </ul>
         </nav>
       </section>

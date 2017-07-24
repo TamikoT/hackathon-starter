@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer from '../components/VideoPlayer';
 import ChatWindow from './ChatWindow';
 
 class HostHome extends Component {
