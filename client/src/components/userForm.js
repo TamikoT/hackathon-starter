@@ -25,7 +25,9 @@ class UserForm extends Component {
 
   onSubmit(values) {
     console.log(values);
+      
   }
+
   // add one field with redux-form for each input
   render() {
     const { handleSubmit } = this.props;
@@ -57,7 +59,6 @@ function validate(values) {
   console.log(values);
   const errors = {};
 
-  // validate the inputs and show validation errors to the user
   if (!values.username) {
     errors.username = "Needs a username!";
   }
@@ -67,8 +68,6 @@ function validate(values) {
   }
 
   // TODO: add extra validations for valid username + room
-
-  // redux-form: if errors is empty then the form is fine to submit
   return errors;
 }
 
