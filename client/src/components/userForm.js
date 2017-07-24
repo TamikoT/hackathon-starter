@@ -36,7 +36,8 @@ class userForm extends Component {
           label="secret code, please: "
           component={this.renderField}
         />
-        <button type='submit'>Enter</button>
+        <button type='submit' className="btn btn-primary">Enter</button>
+        <button>Cancel</button>
       </form>
     )
   }
