@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import '../App.css';
-
 import ReactPlayer from 'react-player';
-
-const MULTIPLE_SOURCES = [
-  { src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4', type: 'video/mp4' },
-  { src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv', type: 'video/ogv' },
-  { src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm', type: 'video/webm' }
-]
 
 export default class VideoPlayer extends Component {
   state = {
@@ -85,9 +77,8 @@ export default class VideoPlayer extends Component {
     const SEPARATOR = ' · '
 
     return (
-      <div className='app'>
-        <section className='section'>
-          <h1>ReactPlayer Demo</h1>
+      <div className='video-player-component'>
+        <section className='user-controls'>
           <div className='player-wrapper'>
             <ReactPlayer
               ref={player => { this.player = player }}
@@ -98,7 +89,6 @@ export default class VideoPlayer extends Component {
               playing={playing}
               playbackRate={playbackRate}
               volume={volume}
-              soundcloudConfig={soundcloudConfig}
               vimeoConfig={vimeoConfig}
               youtubeConfig={youtubeConfig}
               fileConfig={fileConfig}
@@ -152,27 +142,13 @@ export default class VideoPlayer extends Component {
             </tr>
           </tbody></table>
         </section>
-        <section className='section'>
+        <section className='demo-videos'>
           <table><tbody>
             <tr>
               <th>YouTube</th>
               <td>
                 {this.renderLoadButton('https://www.youtube.com/watch?v=oUFJJNQGwhk', 'Test A')}
                 {this.renderLoadButton('https://www.youtube.com/watch?v=jNgP6d9HraI', 'Test B')}
-              </td>
-            </tr>
-            <tr>
-              <th>SoundCloud</th>
-              <td>
-                {this.renderLoadButton('https://soundcloud.com/miami-nights-1984/accelerated', 'Test A')}
-                {this.renderLoadButton('https://soundcloud.com/tycho/tycho-awake', 'Test B')}
-              </td>
-            </tr>
-            <tr>
-              <th>Facebook</th>
-              <td>
-                {this.renderLoadButton('https://www.facebook.com/facebook/videos/10153231379946729/', 'Test A')}
-                {this.renderLoadButton('https://www.facebook.com/FacebookDevelopers/videos/10152454700553553/', 'Test B')}
               </td>
             </tr>
             <tr>
@@ -183,84 +159,11 @@ export default class VideoPlayer extends Component {
               </td>
             </tr>
             <tr>
-              <th>Streamable</th>
-              <td>
-                {this.renderLoadButton('https://streamable.com/moo', 'Test A')}
-                {this.renderLoadButton('https://streamable.com/ifjh', 'Test B')}
-              </td>
-            </tr>
-            <tr>
-              <th>Vidme</th>
-              <td>
-                {this.renderLoadButton('https://vid.me/yvi', 'Test A')}
-                {this.renderLoadButton('https://vid.me/yvf', 'Test B')}
-              </td>
-            </tr>
-            <tr>
-              <th>Wistia</th>
-              <td>
-                {this.renderLoadButton('https://home.wistia.com/medias/e4a27b971d', 'Test A')}
-                {this.renderLoadButton('https://home.wistia.com/medias/29b0fbf547', 'Test B')}
-              </td>
-            </tr>
-            <tr>
-              <th>DailyMotion</th>
-              <td>
-                {this.renderLoadButton('http://www.dailymotion.com/video/x26m1j4_wildlife_animals', 'Test A')}
-                {this.renderLoadButton('http://www.dailymotion.com/video/x26ezj5', 'Test B')}
-              </td>
-            </tr>
-            <tr>
-              <th>Files</th>
-              <td>
-                {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4', 'mp4')}
-                {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv', 'ogv')}
-                {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm', 'webm')}
-                {this.renderLoadButton(MULTIPLE_SOURCES, 'Multiple')}
-                {this.renderLoadButton('https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8', 'HLS (m3u8)')}
-                {this.renderLoadButton('http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd', 'DASH (mpd)')}
-              </td>
-            </tr>
-            <tr>
-              <th>Custom URL</th>
+              <th>Video URL</th>
               <td>
                 <input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
                 <button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
               </td>
-            </tr>
-            <tr>
-              <th>Custom config</th>
-              <td>
-                <textarea ref={textarea => { this.configInput = textarea }} placeholder='Enter JSON' />
-                <button onClick={this.onConfigSubmit}>Update Config</button>
-              </td>
-            </tr>
-          </tbody></table>
-
-          <h2>State</h2>
-
-          <table><tbody>
-            <tr>
-              <th>url</th>
-              <td className={!url ? 'faded' : ''}>
-                {(url instanceof Array ? 'Multiple' : url) || 'null'}
-              </td>
-            </tr>
-            <tr>
-              <th>playing</th>
-              <td>{playing ? 'true' : 'false'}</td>
-            </tr>
-            <tr>
-              <th>volume</th>
-              <td>{volume.toFixed(3)}</td>
-            </tr>
-            <tr>
-              <th>played</th>
-              <td>{played.toFixed(3)}</td>
-            </tr>
-            <tr>
-              <th>loaded</th>
-              <td>{loaded.toFixed(3)}</td>
             </tr>
           </tbody></table>
         </section>

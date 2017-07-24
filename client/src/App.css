@@ -1,3 +1,8 @@
+/*colors:
+  #FFEC4F - yellow
+  #363633 - black
+*/
+
 ul {
   list-style: none;
   padding: none;
@@ -9,8 +14,9 @@ a {
 }
 
 .chat-window-component {
-  border: medium dashed green;
-  background-color: yellow;
+  background-color: #363633;
+  text: white;
+  height: 120px;
 }
 
 .console-log {
@@ -63,4 +69,22 @@ a {
 .react-player {
   margin-bottom: 10px;
   background: rgba($black, .1);
+}
+
+/*colors:
+  #FFEC4F - yellow
+  #363633 - black
+*/
+
+.header-component {
+  background-color: #FFEC4F;
+  height: 130px;
+}
+
+nav a {
+  color: white;
+}
+
+input {
+  text-align: center;
 }

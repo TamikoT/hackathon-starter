@@ -9,10 +9,7 @@ class ChatWindow extends Component {
   render() {
     return (
       <section className="chat-window-component">
-        <p></p>
-        <p></p>
         <p className="console-log">inside chatwindow</p>
-        <h2>Chat</h2>
       </section>
     )
   }
