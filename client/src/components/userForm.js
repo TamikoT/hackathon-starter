@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 
-class userForm extends Component {
+class UserForm extends Component {
 
   renderField(field) {
     // adds event handlers for fields
@@ -69,4 +70,4 @@ function validate(values) {
 export default reduxForm({
   form: 'UserForm',
   validate
-})(userForm);
+})(UserForm);
