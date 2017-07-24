@@ -1,14 +1,14 @@
 FROM node:6-slim
 
-COPY . /starter
-COPY package.json /starter/package.json
-COPY .env.example /starter/.env.example
+COPY . /api
+COPY package.json /api/package.json
+COPY .env.example /api/.env.example
 
 WORKDIR /starter
 
 ENV NODE_ENV production
 RUN yarn install --production
 
-CMD ["npm","start"]
+CMD ["npm","startpro"]
 
-EXPOSE 8888
+EXPOSE 3000

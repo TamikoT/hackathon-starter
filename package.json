@@ -9,6 +9,7 @@
   "author": "Tamiko Terada",
   "license": "",
   "scripts": {
+    "startpro": "node server.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon api/server.js",
     "client": "nodemon start-client.js",
