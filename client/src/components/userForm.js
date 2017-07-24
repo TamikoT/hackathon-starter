@@ -6,14 +6,18 @@ class userForm extends Component {
   renderField(field) {
     // adds event handlers for fields
     return (
-      <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-danger' : ''}`}>
-        <li>
-          <label>{field.label}</label>
+      <div className={`form-group ${field.meta.touched && field.meta.invalid ? "has-danger" : ""}`}>
+        <label className="control-label">{field.label}</label>
+        <div>
           <input
+            {...field.input}
             type="text"
-            {...field.input} />
-        </li>
-        {field.meta.touched ? field.meta.error : ''}
+            className="form-control"
+          />
+        </div>
+        <div className="text-warning">
+          {field.meta.touched ? field.meta.error : ''}
+        </div>
       </div>
     );
   }
@@ -28,13 +32,13 @@ class userForm extends Component {
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <h3>Welcome to Muviato!</h3>
         <Field
-          name="username"
-          label="your sweet username: "
+          name="code"
+          label="room code: "
           component={this.renderField}
         />
         <Field
-          name="code"
-          label="secret code, please: "
+          name="username"
+          label="username: "
           component={this.renderField}
         />
         <button type='submit' className="btn btn-primary">Enter</button>
