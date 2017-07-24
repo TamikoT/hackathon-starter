@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
+import VideoPlayer from './VideoPlayer';
+import ChatWindow from './ChatWindow';
 
 class HostHome extends Component {
   // constructor(props) {
   //   super(props);
   // }
+
+  componentWillMount() {
+    // autogenerate a room code
+    // create room as a namespace for socket/io
+  }
+
   render() {
     return (
       <section className="host-component">
-        <h3>Your Room Code: </h3>
-        <p>(please share with your people)</p>
-        <h4>Video Player Settings</h4>
-        <ul>
-          <li>Setting 1:</li>
-          <li>Setting 2:</li>
-        </ul>
-        <button>Open Video Player</button>
+        <h3>Room Code: </h3>
+        <div>
+          <VideoPlayer />
+        </div>
+          <ChatWindow />
+        <div>
+        </div>
       </section>
     )
   }
