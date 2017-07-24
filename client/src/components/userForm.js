@@ -6,14 +6,14 @@ class userForm extends Component {
   renderField(field) {
     // adds event handlers for fields
     return (
-      <div className="form-group">
+      <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-danger' : ''}`}>
         <li>
           <label>{field.label}</label>
           <input
             type="text"
             {...field.input} />
         </li>
-        {field.meta.error}
+        {field.meta.touched ? field.meta.error : ''}
       </div>
     );
   }
@@ -26,6 +26,7 @@ class userForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <h3>Welcome to Muviato!</h3>
         <Field
           name="username"
           label="your sweet username: "
@@ -37,7 +38,6 @@ class userForm extends Component {
           component={this.renderField}
         />
         <button type='submit' className="btn btn-primary">Enter</button>
-        <button>Cancel</button>
       </form>
     )
   }
@@ -63,6 +63,6 @@ function validate(values) {
 }
 
 export default reduxForm({
-  validate,
-  form: 'UserForm'
+  form: 'UserForm',
+  validate
 })(userForm);
