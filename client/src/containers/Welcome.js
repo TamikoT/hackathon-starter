@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux'
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as roomActions from '../actions/roomActions'
 
 class UserForm extends Component {
 
@@ -24,13 +27,14 @@ class UserForm extends Component {
   }
 
   onSubmit(values) {
-    console.log(values);
+    console.log("onSubmit");
 
   }
 
   // add one field with redux-form for each input
   render() {
     const { handleSubmit } = this.props;
+    const handleClick = () => console.log('Clicked!');
     return (
       <section>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -48,7 +52,7 @@ class UserForm extends Component {
           <button type='submit' className="btn btn-primary">Enter</button>
         </form>
         <div>
-          <Link to='/host'>create a new room as a host</Link>
+          <Link onClick={handleClick} to='/host'>create a new room as a host</Link>
         </div>
       </section>
     )
@@ -56,7 +60,6 @@ class UserForm extends Component {
 }
 
 function validate(values) {
-  console.log(values);
   const errors = {};
 
   if (!values.username) {
@@ -71,7 +74,13 @@ function validate(values) {
   return errors;
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ createRoom: roomActions.createRoom }, dispatch)
+}
+
 export default reduxForm({
   form: 'UserForm',
   validate
-})(UserForm);
+})(
+  connect(null, mapDispatchToProps)(UserForm)
+);
