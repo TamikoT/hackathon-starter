@@ -3,9 +3,9 @@ import VideoPlayer from '../components/VideoPlayer';
 import ChatWindow from './ChatWindow';
 
 class HostHome extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+  }
 
   componentWillMount() {
     // autogenerate a room code

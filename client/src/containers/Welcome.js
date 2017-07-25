@@ -3,9 +3,10 @@ import { bindActionCreators } from 'redux'
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as roomActions from '../actions/roomActions'
+import * as roomActions from '../actions/roomActions';
+import Header from '../components/Header';
 
-class UserForm extends Component {
+class Welcome extends Component {
 
   renderField(field) {
     // adds event handlers for fields
@@ -26,17 +27,18 @@ class UserForm extends Component {
     );
   }
 
-  onSubmit(values) {
+  onSubmit(props) {
     console.log("onSubmit");
-
+    console.log(props);
   }
 
   // add one field with redux-form for each input
   render() {
     const { handleSubmit } = this.props;
-    const handleClick = () => console.log('Clicked!');
+    const handleClick = () => console.log('New room clicked!');
     return (
       <section>
+        <Header />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <h3>Welcome to Muviato!</h3>
           <Field
@@ -79,8 +81,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default reduxForm({
-  form: 'UserForm',
+  form: 'Welcome',
   validate
 })(
-  connect(null, mapDispatchToProps)(UserForm)
+  connect(null, mapDispatchToProps)(Welcome)
 );

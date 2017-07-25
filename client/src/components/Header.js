@@ -3,9 +3,6 @@ import { NavLink } from 'react-router-dom';
 import logo from '../img/MUVIATO.png';
 
 class Header extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
   render() {
     return (
       <section className='header-component'>

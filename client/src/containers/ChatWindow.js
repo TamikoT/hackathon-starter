@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 class ChatWindow extends Component {
   constructor(props) {
     super(props);
-    console.log(this.state);
-    console.log("hello!");
+    console.log("made ChatWindow");
   }
   render() {
     return (
