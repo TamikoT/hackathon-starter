@@ -11,11 +11,11 @@ import App from './components/App';
 import ConfigAppStore from './store/configStore';
 import registerServiceWorker from './registerServiceWorker';
 // components and containers
-import HostHome from './containers/HostHome';
+import HostWindow from './containers/HostWindow';
 import ChatWindow from './containers/ChatWindow';
 import About from './components/About';
 import Welcome from './containers/Welcome';
-import VideoPlayer from './components/VideoPlayer';
+import HostLogin from './containers/HostLogin';
 
 const store = ConfigAppStore();
 
@@ -26,10 +26,10 @@ render(
         <section className="routes">
           <Switch>
             <Route exact path='/' component={Welcome} />
-            <Route path='/host' component={HostHome} />
+            <Route path='/host' component={HostWindow} />
             <Route path='/about' component={About} />
-            <Route path='/video' component={VideoPlayer} />
             <Route path='/chat' component={ChatWindow} />
+            <Route path='/login' component={HostLogin} />
           </Switch>
         </section>
       </App>

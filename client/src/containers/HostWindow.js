@@ -30,7 +30,7 @@ class HostHome extends Component {
 
   render() {
     return (
-      <section className="host-component">
+      <section className='host-component'>
         <h3>Room Code: </h3>
         <div>
           <VideoPlayer />

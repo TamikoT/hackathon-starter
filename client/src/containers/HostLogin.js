@@ -11,16 +11,16 @@ class Welcome extends Component {
   renderField(field) {
     // adds event handlers for fields
     return (
-      <div className={`form-group ${field.meta.touched && field.meta.invalid ? "has-danger" : ""}`}>
+      <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-danger' : ''}`}>
         <label className="control-label">{field.label}</label>
         <div>
           <input
             {...field.input}
-            type="text"
-            className="form-control"
+            type='text'
+            className='form-control'
           />
         </div>
-        <div className="text-danger">
+        <div className='text-danger'>
           {field.meta.touched ? field.meta.error : ''}
         </div>
       </div>
@@ -28,33 +28,33 @@ class Welcome extends Component {
   }
 
   onSubmit(props) {
-    console.log("onSubmit");
+    console.log('onSubmit');
     console.log(props);
   }
 
   // add one field with redux-form for each input
   render() {
     const { handleSubmit } = this.props;
-    const handleClick = () => console.log('New room clicked!');
+    const handleClick = () => console.log('Home link clicked!');
     return (
       <section>
         <Header />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <h3>Welcome to Muviato!</h3>
+          <h3>Please Login to Host a Viewing</h3>
           <Field
-            name="code"
-            label="room code: "
+            name='username'
+            label='username: '
             component={this.renderField}
           />
           <Field
-            name="username"
-            label="username: "
+            name='email'
+            label='email: '
             component={this.renderField}
           />
-          <button type='submit' className="btn btn-primary">Enter</button>
+          <button type='submit' className='btn btn-primary'>Enter</button>
         </form>
         <div>
-          <Link onClick={handleClick} to='/login'>create a new room as a host</Link>
+          <Link onClick={handleClick} to='/'>join an existing room</Link>
         </div>
       </section>
     )
@@ -65,14 +65,14 @@ function validate(values) {
   const errors = {};
 
   if (!values.username) {
-    errors.username = "Needs a username!";
+    errors.username = 'Needs a username!';
   }
 
-  if (!values.code) {
-    errors.code = "Must enter room code!"
+  if (!values.email) {
+    errors.code = 'Must enter an email!';
   }
 
-  // TODO: add extra validations for valid username + room
+  // TODO: add extra validations for valid username + email
   return errors;
 }
 
