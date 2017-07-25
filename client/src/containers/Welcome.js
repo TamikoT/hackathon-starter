@@ -51,10 +51,10 @@ class Welcome extends Component {
             label="username: "
             component={this.renderField}
           />
-          <button type='submit' className="btn btn-primary">Enter</button>
+          <button type='submit' className="btn btn-primary">Join</button>
         </form>
         <div>
-          <Link onClick={handleClick} to='/login'>create a new room as a host</Link>
+          <Link onClick={handleClick} to='/login'>...or create a new room as a host</Link>
         </div>
       </section>
     )

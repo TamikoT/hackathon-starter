@@ -40,7 +40,7 @@ class Welcome extends Component {
       <section>
         <Header />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <h3>Please Login to Host a Viewing</h3>
+          <h3>Host a Muviato Viewing</h3>
           <Field
             name='username'
             label='username: '
@@ -51,10 +51,10 @@ class Welcome extends Component {
             label='email: '
             component={this.renderField}
           />
-          <button type='submit' className='btn btn-primary'>Enter</button>
+          <button type='submit' className='btn btn-primary'>Make a New Room</button>
         </form>
         <div>
-          <Link onClick={handleClick} to='/'>join an existing room</Link>
+          <Link onClick={handleClick} to='/'>nevermind... join an existing room</Link>
         </div>
       </section>
     )
@@ -69,7 +69,7 @@ function validate(values) {
   }
 
   if (!values.email) {
-    errors.code = 'Must enter an email!';
+    errors.email = 'Must enter an email!';
   }
 
   // TODO: add extra validations for valid username + email
