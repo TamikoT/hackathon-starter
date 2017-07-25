@@ -8,6 +8,7 @@ export default function roomsReducer(state = [], action) {
   case CREATE_ROOM:
     // concat new room on top of the stack
     return [ action.payload.data, ...state ]
+    console.log(state);
   default:
     return state;
   }

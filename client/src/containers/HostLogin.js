@@ -3,10 +3,32 @@ import { bindActionCreators } from 'redux'
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as roomActions from '../actions/roomActions';
 import Header from '../components/Header';
+import * as roomActions from '../actions/roomActions';
+import * as userActions from '../actions/userActions';
 
-class Welcome extends Component {
+
+class HostLogin extends Component {
+  constructor(props){
+    super(props);
+    this.generateRoomCode = this.generateRoomCode.bind(this);
+    this.state = {
+      username: '',
+      code: this.generateRoomCode(),
+      valid: false
+    };
+    this.withSubmit = this.withSubmit.bind(this);
+  }
+
+  // makes random 4 letter/number code
+  generateRoomCode() {
+    var code = '';
+    var chars = '0123456789ABCDEFGHIJKLMNOPQURSTUVWXYZ';
+    for ( var i = 0; i < 4; i ++ ) {
+      code += chars.substr(Math.floor(Math.random() * (chars.length - 1)), 1);
+    }
+    return code;
+  }
 
   renderField(field) {
     // adds event handlers for fields
@@ -27,19 +49,23 @@ class Welcome extends Component {
     );
   }
 
-  onSubmit(props) {
-    console.log('onSubmit');
+  withSubmit(props){
+    console.log('called withSubmit()');
     console.log(props);
+    console.log(this.state);
+    this.setState({unsername: props.username});
+    this.props.newUser(this.state.username);
+    this.props.createRoom(this.state.code);
   }
 
-  // add one field with redux-form for each input
+  // `handleSubmit()` is a redux-form func for validations
   render() {
     const { handleSubmit } = this.props;
     const handleClick = () => console.log('Home link clicked!');
     return (
       <section>
         <Header />
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.withSubmit)}>
           <h3>Host a Muviato Viewing</h3>
           <Field
             name='username'
@@ -77,12 +103,12 @@ function validate(values) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ createRoom: roomActions.createRoom }, dispatch)
+  return bindActionCreators({ createRoom: roomActions.createRoom, newUser: userActions.newUser }, dispatch)
 }
 
 export default reduxForm({
-  form: 'Welcome',
+  form: 'HostLogin',
   validate
 })(
-  connect(null, mapDispatchToProps)(Welcome)
+  connect(null, mapDispatchToProps)(HostLogin)
 );
