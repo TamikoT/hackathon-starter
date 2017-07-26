@@ -26,7 +26,7 @@ render(
         <section className="routes">
           <Switch>
             <Route exact path='/' component={Welcome} />
-            <Route path='/host' component={HostWindow} />
+            <Route path='/room' component={HostWindow} />
             <Route path='/about' component={About} />
             <Route path='/chat' component={ChatWindow} />
             <Route path='/login' component={HostLogin} />

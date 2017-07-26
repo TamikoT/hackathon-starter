@@ -30,6 +30,8 @@ class Welcome extends Component {
   onSubmit(props) {
     console.log("onSubmit");
     console.log(props);
+    //redirect to ChatWindow
+    this.props.history.push('/chat');
   }
 
   // add one field with redux-form for each input

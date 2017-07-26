@@ -56,6 +56,8 @@ class HostLogin extends Component {
     this.setState({unsername: props.username});
     this.props.newUser(this.state.username);
     this.props.createRoom(this.state.code);
+    //redirect to ChatWindow
+    this.props.history.push({pathname: '/room', state: {code: this.state.code}});
   }
 
   // `handleSubmit()` is a redux-form func for validations
