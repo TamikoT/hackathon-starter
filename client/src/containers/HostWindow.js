@@ -31,4 +31,9 @@ class HostHome extends Component {
   }
 }
 
-export default HostHome;
+function mapStateToProps(state, ownProps) {
+  // react-router changed props and nested params in props.match
+  return { code: state.code }
+}
+
+export default connect(mapStateToProps)(HostWindow);

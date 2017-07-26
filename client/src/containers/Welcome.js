@@ -78,7 +78,11 @@ function validate(values) {
   return errors;
 }
 
-const mapDispatchToProps = (dispatch) => {
+function mapStateToProps(state, ownProps) {
+ return { username: state.username }
+}
+
+function mapDispatchToProps(dispatch) {
   return bindActionCreators({ createRoom: roomActions.createRoom }, dispatch)
 }
 
@@ -86,5 +90,5 @@ export default reduxForm({
   form: 'Welcome',
   validate
 })(
-  connect(null, mapDispatchToProps)(Welcome)
+  connect(mapStateToProps, mapDispatchToProps)(Welcome)
 );
