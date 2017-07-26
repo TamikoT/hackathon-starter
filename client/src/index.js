@@ -13,11 +13,16 @@ import registerServiceWorker from './registerServiceWorker';
 // components and containers
 import HostWindow from './containers/HostWindow';
 import ChatWindow from './containers/ChatWindow';
+import ChatSubmit from './containers/ChatSubmit';
 import About from './components/About';
 import Welcome from './containers/Welcome';
 import HostLogin from './containers/HostLogin';
 
 const store = ConfigAppStore();
+
+store.subscribe(() => {
+  // console.log(store.getState());
+});
 
 render(
   <Provider store={store}>

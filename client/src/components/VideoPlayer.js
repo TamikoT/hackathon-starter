@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 
 export default class VideoPlayer extends Component {
@@ -69,12 +68,10 @@ export default class VideoPlayer extends Component {
       url, playing, volume,
       played, loaded,
       playbackRate,
-      soundcloudConfig,
       vimeoConfig,
       youtubeConfig,
       fileConfig
     } = this.state
-    const SEPARATOR = ' · '
 
     return (
       <div className='video-player-component'>

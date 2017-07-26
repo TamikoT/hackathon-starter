@@ -79,11 +79,11 @@ function validate(values) {
 }
 
 function mapStateToProps(state, ownProps) {
- return { username: state.username }
+ return { currentUser: state.currentUser }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ createRoom: roomActions.createRoom }, dispatch)
+  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser }, dispatch)
 }
 
 export default reduxForm({

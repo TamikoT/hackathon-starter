@@ -15,9 +15,9 @@ class Home extends Component {
 
   handleOnClick(event){
     event.preventDefault();
-    console.log('user clicked `enter` button');
-    console.log(this.state.username);
-    console.log(this.state.code);
+    // console.log('user clicked `enter` button');
+    // console.log(this.state.username);
+    // console.log(this.state.code);
 
     fetch('http://localhost:3001/api/users', {
       method: 'POST',

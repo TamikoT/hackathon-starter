@@ -50,8 +50,8 @@ class HostLogin extends Component {
   }
 
   withSubmit(formData){
-    console.log('called withSubmit()');
-    console.log(formData);
+    // console.log('called withSubmit()');
+    // console.log(formData);
     this.setState({unsername: formData.username});
     this.props.newUser(this.state.username);
     this.props.createRoom(this.state.code);
