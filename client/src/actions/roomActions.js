@@ -9,7 +9,6 @@ export const CREATE_ROOM = 'CREATE_ROOM';
 export function createRoom(code) {
   return(dispatch) => {
     var codeData = { code };
-    console.log(codeData);
     axios.post(API_ROOMS_URL, codeData)
       .then( (res) => {
         console.log(res);
@@ -23,5 +22,7 @@ export function createRoom(code) {
 };
 
 export function createRoomSuccess(payload){
+  alert("Hooray! New room made!");
+  console.log(payload);
   return { type: CREATE_ROOM, payload };
 }

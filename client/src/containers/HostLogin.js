@@ -49,11 +49,10 @@ class HostLogin extends Component {
     );
   }
 
-  withSubmit(props){
+  withSubmit(formData){
     console.log('called withSubmit()');
-    console.log(props);
-    console.log(this.state);
-    this.setState({unsername: props.username});
+    console.log(formData);
+    this.setState({unsername: formData.username});
     this.props.newUser(this.state.username);
     this.props.createRoom(this.state.code);
     //redirect to ChatWindow
