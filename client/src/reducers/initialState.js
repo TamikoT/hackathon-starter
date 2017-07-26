@@ -5,6 +5,7 @@ export default {
     isHost: false,
   },
   rooms: {}
+  // form: added by redux-form
 };
 
 // SAMPLE DATA FROM API

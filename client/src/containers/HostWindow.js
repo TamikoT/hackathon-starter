@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import VideoPlayer from '../components/VideoPlayer';
 import ChatWindow from './ChatWindow';
+import { connect } from 'react-redux';
 
-class HostHome extends Component {
+class HostWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      code: this.props.code,
+      hasRoom: false
     };
   }
 
-  componentWillMount() {
-    // autogenerate a room code
-    console.log(this.state);
-    // create room as a namespace for socket/io
+  componentDidMount() {
+    this.setState({ hasRoom: true });
+    // console.log(this.state);
   }
 
   render() {
     return (
       <section className='host-component'>
-        <h3>Room Code: </h3>
+        <div>
+          <h3>
+            `Join Code: ${this.state.hasRoom ? this.state.code : "not found" }`
+          </h3>
+        </div>
         <div>
           <VideoPlayer />
         </div>

@@ -38,7 +38,7 @@ io.on('connection', function(socket) {
 
     newUser.save(function (err, newUser) {
       if (err) return console.error(chalk.bgRed(err));
-      // console.log('New room ' + newUser.username + ' created!');
+      console.log('New room ' + newUser.username + ' created!');
     });
 
     data.code = generateRoomCode();

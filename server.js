@@ -36,7 +36,7 @@ db.on('error', function(err) {
   process.exit();
 });
 db.once('open', function() {
-  // console.log(chalk.green.bold('Connected to MongoDB!'));
+  console.log(chalk.green.bold('Connected to MongoDB!'));
 });
 mongoose.Promise = global.Promise;
 
