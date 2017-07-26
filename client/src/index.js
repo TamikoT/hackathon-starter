@@ -11,7 +11,7 @@ import App from './components/App';
 import ConfigAppStore from './store/configStore';
 import registerServiceWorker from './registerServiceWorker';
 // components and containers
-import HostWindow from './containers/HostWindow';
+import PresenterView from './containers/PresenterView';
 import ChatWindow from './containers/ChatWindow';
 import ChatSubmit from './containers/ChatSubmit';
 import About from './components/About';
@@ -31,9 +31,8 @@ render(
         <section className="routes">
           <Switch>
             <Route exact path='/' component={Welcome} />
-            <Route path='/room' component={HostWindow} />
             <Route path='/about' component={About} />
-            <Route path='/player' component={HostWindow} />
+            <Route path='/room' component={PresenterView} />
             <Route path='/login' component={HostLogin} />
             <Route path='/chat' component={ChatSubmit} />
           </Switch>
