@@ -4,9 +4,16 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as roomActions from '../actions/roomActions';
+import * as userActions from '../actions/userActions';
 import Header from '../components/Header';
 
 class Welcome extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = props.currentUser;
+    // Note: this.state is {username: '', code: ''}
+  }
 
   renderField(field) {
     // adds event handlers for fields
@@ -28,9 +35,10 @@ class Welcome extends Component {
   }
 
   onSubmit(props) {
-    console.log("onSubmit");
-    console.log(props);
+    // Note: props is form data {username: '', code: ''}
+    this.props.currentUser.username = this.props.username;
     //redirect to ChatWindow
+    this.props.joinRoom(props);
     this.props.history.push('/chat');
   }
 

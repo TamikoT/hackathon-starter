@@ -33,8 +33,9 @@ render(
             <Route exact path='/' component={Welcome} />
             <Route path='/room' component={HostWindow} />
             <Route path='/about' component={About} />
-            <Route path='/chat' component={ChatWindow} />
+            <Route path='/player' component={ChatWindow} />
             <Route path='/login' component={HostLogin} />
+            <Route path='/chat' component={ChatSubmit} />
           </Switch>
         </section>
       </App>
