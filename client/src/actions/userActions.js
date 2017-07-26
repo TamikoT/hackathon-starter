@@ -1,8 +1,7 @@
-export const NEW_USER = 'NEW_USER'
-
+import axios from 'axios';
 const API_USERS_URL = 'http://localhost:3001/api/users';
 
-export const NEW_USER = 'NEW_USER';
+export const NEW_USER = 'NEW_USER'
 
 export function newUser(username){
   console.log(`called newUser() w/username: (${username})`);
@@ -11,7 +10,7 @@ export function newUser(username){
     axios.post(API_USERS_URL, userData)
       .then( (res) => {
         console.log(res);
-        dispatch(newUserSuccess(codeData));
+        dispatch(newUserSuccess(userData));
       })
       .catch(function (err) {
         console.log(err);

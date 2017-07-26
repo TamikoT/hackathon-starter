@@ -1,7 +1,7 @@
 export default {
   currentUser: {
-    username: 'testname',
-    code: 'test',
+    username: 'tamikulon',
+    code: 'ADA1',
     isHost: false,
   },
   rooms: {}

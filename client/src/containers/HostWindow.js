@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 class HostWindow extends Component {
   constructor(props) {
     super(props);
+    let roomCode = props.currentUser.code;
     this.state = {
-      code: this.props.code,
+      code: props.currentUser.code,
       hasRoom: false
     };
   }
@@ -22,7 +23,7 @@ class HostWindow extends Component {
       <section className='host-component'>
         <div>
           <h3>
-            `Join Code: ${this.state.hasRoom ? this.state.code : "not found" }`
+            {this.state.hasRoom ? `code to join: ${this.state.code}` : `not found` }
           </h3>
         </div>
         <div>
@@ -38,7 +39,7 @@ class HostWindow extends Component {
 
 function mapStateToProps(state, ownProps) {
   // react-router changed props and nested params in props.match
-  return { code: state.code }
+  return { currentUser: state.currentUser }
 }
 
 export default connect(mapStateToProps)(HostWindow);

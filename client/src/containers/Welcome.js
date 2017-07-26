@@ -8,11 +8,14 @@ import * as userActions from '../actions/userActions';
 import Header from '../components/Header';
 
 class Welcome extends Component {
-
   constructor(props) {
     super(props);
     this.state = props.currentUser;
     // Note: this.state is {username: '', code: ''}
+  }
+
+  componentWillMount() {
+    this.props.fetchRooms();
   }
 
   renderField(field) {
@@ -91,7 +94,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser, fetchRooms: roomActions.fetchRooms, }, dispatch)
+  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser, fetchRooms: roomActions.fetchRooms }, dispatch)
 }
 
 export default reduxForm({

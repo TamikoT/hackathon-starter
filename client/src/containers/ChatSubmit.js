@@ -9,9 +9,12 @@ import * as userActions from '../actions/userActions';
 class ChatSubmit extends Component {
   constructor(props){
     super(props);
-    this.state = {
-
-    };
+    this.state = props.currentUser;
+    console.log(this.state);
+    if (this.state.username === undefined) {
+      console.log('username and code are both needed');
+      this.props.history.push('/');
+    }
     this.withSubmit = this.withSubmit.bind(this);
     // console.log(this.props);
   }
@@ -51,8 +54,8 @@ class ChatSubmit extends Component {
       <section>
         <Header />
         <form onSubmit={handleSubmit(this.withSubmit)}>
-          <h3>Now in room:</h3>
-          <h4>Your username: </h4>
+          <h3>now in room: {this.state.code}</h3>
+          <h4>as {this.state.username}</h4>
           <Field
             name='message'
             label='message: '
@@ -68,12 +71,8 @@ class ChatSubmit extends Component {
 function validate(values) {
   const errors = {};
 
-  if (!values.username) {
-    errors.username = 'Needs a username!';
-  }
-
-  if (!values.email) {
-    errors.email = 'Must enter an email!';
+  if (!values.message) {
+    errors.message = "can't send it blank!";
   }
 
   // TODO: add extra validations for valid username + email

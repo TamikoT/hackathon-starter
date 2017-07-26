@@ -21,5 +21,6 @@ export default function roomsReducer(state=initialState.rooms, action) {
         return [ ...state, action.payload.code ]
     default:
       return state;
+
   }
 }

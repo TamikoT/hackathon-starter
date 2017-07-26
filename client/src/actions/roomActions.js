@@ -1,6 +1,5 @@
 // info: action creators are functions that return an action object
 import axios from 'axios';
-
 const API_ROOMS_URL = 'http://localhost:3001/api/rooms';
 
 // convention to reduce chance of typo bugs
@@ -21,7 +20,7 @@ export function createRoom(code) {
         // console.log(err);
         alert(err);
       });
-  }
+  };
 }
 export function createRoomSuccess(payload){
   alert("New room created!");
@@ -30,7 +29,7 @@ export function createRoomSuccess(payload){
 
 export function fetchRooms(code) {
   return (dispatch) => {
-    axios.get(`${API_ROOMS_URL}/${code}`)
+    axios.get(API_ROOMS_URL)
       .then( (res) => {
         // console.log(res);
         dispatch(fetchRoomsSuccess());
