@@ -17,7 +17,7 @@ var message = document.getElementById('message'),
 
 // event triggered w/ `start` click - emit to Express server
 startButton.addEventListener('click', () => {
-  console.log('start button clicked by user');
+  // console.log('start button clicked by user');
   socket.emit('start', {
     'code': undefined,
     'username': hostUsername.value,
@@ -25,12 +25,12 @@ startButton.addEventListener('click', () => {
 });
 
 socket.on('roomCreated', (data) => {
-  console.log('your room code is' + ' ' + data.code);
+  // console.log('your room code is' + ' ' + data.code);
 });
 
 // event triggered w/ `enter` click - emit to Express server
 enterButton.addEventListener('click', () => {
-  console.log('enter button clicked by user');
+  // console.log('enter button clicked by user');
   socket.emit('enter', {
     'username': username.value,
     'code': roomCode.value,
@@ -38,13 +38,13 @@ enterButton.addEventListener('click', () => {
 });
 
 socket.on('enter', (data) => {
-  console.log('you entered' + data.room);
+  // console.log('you entered' + data.room);
 
 });
 
 // event triggered w/ `send` click - emit to Express server
 sendButton.addEventListener('click', () => {
-  console.log(message.value);
+  // console.log(message.value);
   socket.emit('chat', {
     'room': roomIn.innerHTML,
     'message': message.value,

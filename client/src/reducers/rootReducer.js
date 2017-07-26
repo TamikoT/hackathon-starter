@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import users from './usersReducer';
-import rooms from './roomsReducer';
-// set reducer for form from redux-form lib with alias
+import userReducer from './userReducer';
+import roomsReducer from './roomsReducer';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
-  users: users,
-  rooms: rooms,
+  currentUser: userReducer,
+  rooms: roomsReducer,
+  // set reducer for form from redux-form lib with alias
   form: formReducer
 });
 

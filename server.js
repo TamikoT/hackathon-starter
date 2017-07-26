@@ -93,24 +93,24 @@ var generateRoomCode = function() {
 
 // callback for the first time socket is made
 io.on('connection', function(socket) {
-  console.log(chalk.bgBlue('-> socket opened: ' + socket.id));
+  // console.log(chalk.bgBlue('-> socket opened: ' + socket.id));
 
   // events emitted from client side
   socket.on('start', function(data){
     // join a room based on user input
-    console.log('start event handler server-side');
-    console.log('data in function: ' + data);
+    // console.log('start event handler server-side');
+    // console.log('data in function: ' + data);
 
     // create a new User with the username
     var newUser = new User( {
       username: data.username,
       isHost: true,
     });
-    console.log(newUser);
+    // console.log(newUser);
 
     newUser.save(function (err, newUser) {
       if (err) return console.error(chalk.bgRed(err));
-      // console.log('New room ' + newUser.username + ' created!');
+      // // console.log('New room ' + newUser.username + ' created!');
     });
 
     data.code = generateRoomCode();
@@ -119,13 +119,13 @@ io.on('connection', function(socket) {
       code: data.code,
       _hostID: newUser._id,
     });
-    console.log(newRoom);
+    // console.log(newRoom);
 
     newRoom.save(function (err, newRoom) {
       if (!err) {
         // host joins the room themselves after successfully created
         socket.join(newRoom.code);
-        console.log('New room ' + newRoom.code + ' created!');
+        // console.log('New room ' + newRoom.code + ' created!');
         // emit message back = still just host in the room
         io.sockets.in(newRoom.code).emit('roomCreated', data);
       } else {
@@ -148,10 +148,10 @@ io.on('connection', function(socket) {
         if (err) {
           return errorHandler(err);
         } else if (room.length > 0) {
-          console.log(room);
+          // console.log(room);
           return room;
         } else {
-          console.log('oops, room not found');
+          // console.log('oops, room not found');
           // TODO: alert user and prompt to re-enter info
         }
       }
@@ -159,15 +159,15 @@ io.on('connection', function(socket) {
 
     // if the room exists, create a new User in the room
     if ( foundRoom.length > 0 ) {
-      console.log(foundRoom[0]);
+      // console.log(foundRoom[0]);
       socket.join(data.code);
       // create a new User with the username
       var newUser = new User( {
         username: data.username,
         isHost: false,
       });
-      console.log(data.username + " joined Room " + data.code);
-      console.log(newUser);
+      // console.log(data.username + " joined Room " + data.code);
+      // console.log(newUser);
       newUser.save(function (err, newUser) {
         if (err) return console.error(chalk.bgRed(err));
       });
@@ -182,5 +182,5 @@ io.on('connection', function(socket) {
 
 
 server.listen(port, function() {
-  console.log(chalk.yellow('listening on ' + port));
+  // console.log(chalk.yellow('listening on ' + port));
 });

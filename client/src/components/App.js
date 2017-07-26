@@ -1,10 +1,5 @@
-import './App.css';
 import React, { Component } from 'react';
-// import components
-import Header from './components/Header';
-import Main from './components/Main';
 const io = require('socket.io-client');
-
 
 // because router component expects only one child
 // create App component that renders everything
@@ -20,8 +15,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
-        <Main/>
+        <div>
+          {this.props.children}
+        </div>
       </div>
     )
   }

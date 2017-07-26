@@ -617,7 +617,7 @@ Here is an example:
 import React from 'react';
 import logo from './logo.png'; // Tell Webpack this JS file uses this image
 
-console.log(logo); // /logo.84287d09.png
+// console.log(logo); // /logo.84287d09.png
 
 function Header() {
   // Import result is the URL of your image
@@ -1760,7 +1760,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+It will get copied to the `build` folder when you run `npm run build`.
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 

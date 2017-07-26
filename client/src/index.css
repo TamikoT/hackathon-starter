@@ -1,5 +1,96 @@
+/*colors:
+  #FFEC4F - yellow
+  #363633 - black
+*/
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: none;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+.chat-window-component {
+  background-color: #363633;
+  text: white;
+  height: 120px;
+}
+
+.console-log {
+  color: pink;
+  font-style: italic;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.section {
+  display: inline-block;
+  max-width: $column-width;
+  margin: $gutter-width;
+  text-align: left;
+  vertical-align: top;
+}
+
+.player-wrapper {
+  width: 480px;
+  height: 270px;
+}
+
+.react-player {
+  margin-bottom: 10px;
+  background: rgba($black, .1);
+}
+
+/*colors:
+  #FFEC4F - yellow
+  #363633 - black
+*/
+
+.header-component {
+  background-color: #FFEC4F;
+  height: 130px;
+}
+
+nav a {
+  color: white;
+}
+
+input {
+  text-align: center;
 }

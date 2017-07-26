@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux'
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as roomActions from '../actions/roomActions';
+import * as userActions from '../actions/userActions';
+import Header from '../components/Header';
 
-class UserForm extends Component {
+class Welcome extends Component {
+  constructor(props) {
+    super(props);
+    this.state = props.currentUser;
+    // Note: this.state is {username: '', code: ''}
+  }
+
+  componentWillMount() {
+    this.props.fetchRooms();
+  }
 
   renderField(field) {
     // adds event handlers for fields
@@ -23,16 +37,21 @@ class UserForm extends Component {
     );
   }
 
-  onSubmit(values) {
-    console.log(values);
-
+  onSubmit(props) {
+    // Note: props is form data {username: '', code: ''}
+    this.props.currentUser.username = this.props.username;
+    //redirect to ChatWindow
+    this.props.joinRoom(props);
+    this.props.history.push('/chat');
   }
 
   // add one field with redux-form for each input
   render() {
     const { handleSubmit } = this.props;
+    const handleClick = () => console.log('New room clicked!');
     return (
       <section>
+        <Header />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <h3>Welcome to Muviato!</h3>
           <Field
@@ -45,10 +64,10 @@ class UserForm extends Component {
             label="username: "
             component={this.renderField}
           />
-          <button type='submit' className="btn btn-primary">Enter</button>
+          <button type='submit' className="btn btn-primary">Join</button>
         </form>
         <div>
-          <Link to='/host'>create a new room as a host</Link>
+          <Link onClick={handleClick} to='/login'>...or create a new room as a host</Link>
         </div>
       </section>
     )
@@ -56,7 +75,6 @@ class UserForm extends Component {
 }
 
 function validate(values) {
-  console.log(values);
   const errors = {};
 
   if (!values.username) {
@@ -71,7 +89,17 @@ function validate(values) {
   return errors;
 }
 
+function mapStateToProps(state, ownProps) {
+ return { currentUser: state.currentUser }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser, fetchRooms: roomActions.fetchRooms }, dispatch)
+}
+
 export default reduxForm({
-  form: 'UserForm',
+  form: 'Welcome',
   validate
-})(UserForm);
+})(
+  connect(mapStateToProps, mapDispatchToProps)(Welcome)
+);
