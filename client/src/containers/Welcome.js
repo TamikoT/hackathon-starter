@@ -91,7 +91,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser }, dispatch)
+  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser, fetchRooms: roomActions.fetchRooms, }, dispatch)
 }
 
 export default reduxForm({

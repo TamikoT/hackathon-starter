@@ -30,10 +30,10 @@ export function createRoomSuccess(payload){
 
 export function fetchRooms(code) {
   return (dispatch) => {
-    axios.fetch(`${API_ROOMS_URL}/${code}`)
+    axios.get(`${API_ROOMS_URL}/${code}`)
       .then( (res) => {
         // console.log(res);
-          dispatch(fetchRoomsSuccess());
+        dispatch(fetchRoomsSuccess());
       })
       .catch(function (err) {
         // console.log(err);
@@ -50,14 +50,15 @@ export function fetchRoomsSuccess(payload){
 
 export function findRoom(code) {
   return (dispatch) => {
-    axios.fetch(`${API_ROOMS_URL}/${code}`)
+    axios.get(`${API_ROOMS_URL}/${code}`)
       .then( (res) => {
-        // console.log(res);
-          dispatch(findRoomSuccess());
+        console.log(res);
+        dispatch(findRoomSuccess());
       })
       .catch(function (err) {
-        // console.log(err);
-        alert(err);
+        console.log(err);
+        alert('Your room could not be found!');
+        dispatch(findRoomFail());
       });
   }
 }
@@ -66,10 +67,14 @@ export function findRoomSuccess(payload){
   // console.log(payload);
   return { type: FIND_ROOM, payload };
 }
+export function findRoomFail(payload){
+  console.log(payload);
+  return { type: FIND_ROOM, payload };
+}
 
 export function joinRoom(code) {
   return (dispatch) => {
-    axios.fetch(`${API_ROOMS_URL}/${code}`)
+    axios.get(`${API_ROOMS_URL}/${code}`)
       .then( (res) => {
         // console.log(res);
           dispatch(findRoomSuccess());

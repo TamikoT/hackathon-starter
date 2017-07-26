@@ -82,7 +82,7 @@ function validate(values) {
 
 
 function mapStateToProps(state, ownProps) {
-  return { code: state.code }
+  return { currentUser: state.currentUser }
 }
 
 const mapDispatchToProps = (dispatch) => {
