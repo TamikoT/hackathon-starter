@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 class PresenterView extends Component {
   constructor(props) {
     super(props);
-    let roomCode = props.currentUser.code;
     this.state = {
       code: props.currentUser.code,
       hasRoom: false

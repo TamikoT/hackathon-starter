@@ -112,7 +112,6 @@ function validate(values) {
     errors.message = "can't send it blank!";
   }
 
-  // TODO: add extra validations for valid username + email
   return errors;
 }
 

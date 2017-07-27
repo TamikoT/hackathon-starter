@@ -12,7 +12,6 @@ import ConfigAppStore from './store/configStore';
 import registerServiceWorker from './registerServiceWorker';
 // components and containers
 import PresenterView from './containers/PresenterView';
-import ChatWindow from './containers/ChatWindow';
 import ChatSubmit from './containers/ChatSubmit';
 import About from './components/About';
 import Welcome from './containers/Welcome';
