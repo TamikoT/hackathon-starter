@@ -24,9 +24,9 @@ mongoose.Promise = global.Promise;
 
 // release access to API by my frontend
 app.use(cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // look for JSON in response body

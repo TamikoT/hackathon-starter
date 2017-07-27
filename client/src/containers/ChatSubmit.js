@@ -6,20 +6,38 @@ import Header from '../components/Header';
 import * as roomActions from '../actions/roomActions';
 import * as userActions from '../actions/userActions';
 
+var socket;
+
 class ChatSubmit extends Component {
-  constructor(props){
-    super(props);
-    this.state = props.currentUser;
-    console.log(this.state);
-    if (this.state.username === undefined) {
-      console.log('username and code are both needed');
-      this.props.history.push('/');
+
+  constructor ( props ) {
+    super ( props );
+    console.log( props );
+
+    this.state = { currentUser: props.currentUser };
+    console.log( this.state );
+
+    if ( this.state.username === undefined ) {
+      console.log( 'username and code are both needed' );
+      this.props.history.push( '/' );
     }
-    this.withSubmit = this.withSubmit.bind(this);
-    // console.log(this.props);
+
+    this.socket = props.socket;
+    console.log( socket );
   }
 
-  renderField(field) {
+  // componentWillMount (props) {
+  //   this.state = { currentUser: props.currentUser };
+  //   console.log( this.state );
+  //
+  //   if ( this.state.username === undefined ) {
+  //     console.log('user needs both username and code');
+  //     alert( 'username and code are both needed' );
+  //     this.props.history.push( '/' );
+  //   }
+  // }
+
+  renderField( field ) {
     // adds event handlers for fields
     return (
       <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-danger' : ''}`}>
@@ -38,13 +56,46 @@ class ChatSubmit extends Component {
     );
   }
 
-  withSubmit(formData){
-    // console.log('called withSubmit()');
-    // console.log(formData);
-    this.props.newUser(this.state.username);
-    // this.props.createRoom(this.state.code); //join room instead
-    //redirect to ChatWindow
-    this.props.history.push({pathname: '/room', state: {code: this.state.code}});
+  msgComponent(data) {
+    console.log(data);
+    return (
+      <div>
+        { data }
+      </div>
+    )
+  }
+
+  onSubmit(formData) {
+    console.log('in onSubmit');
+    console.log(this.props);
+    this.props.addMessage(formData);
+
+    // emit event to server to join a room
+    socket.emit('enterRoom', {
+      'code': 'ADA1',
+      'username': this.state.username
+    });
+    // w/ callback for server response
+    socket.on('enterRoom', (data) => {
+      console.log('room entered');
+    });
+
+    socket.emit('msgSent', {
+      'username': this.state.username,
+      'message': formData.message
+    })
+
+    socket.on('msgShared', (data) => {
+      console.log(data);
+      // attach message to DOM
+      // use setState
+
+      // ReactDOM.render(
+      //   // this.msgComponent(data),
+      //   document.getElementById('messages-container')
+      // );
+    });
+
   }
 
   // `handleSubmit()` is a redux-form func for validations
@@ -53,7 +104,7 @@ class ChatSubmit extends Component {
     return (
       <section>
         <Header />
-        <form onSubmit={handleSubmit(this.withSubmit)}>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <h3>now in room: {this.state.code}</h3>
           <h4>as {this.state.username}</h4>
           <Field
@@ -75,7 +126,6 @@ function validate(values) {
     errors.message = "can't send it blank!";
   }
 
-  // TODO: add extra validations for valid username + email
   return errors;
 }
 
