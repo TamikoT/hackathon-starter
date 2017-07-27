@@ -38,13 +38,49 @@ class ChatSubmit extends Component {
     );
   }
 
-  withSubmit(formData){
-    // console.log('called withSubmit()');
-    // console.log(formData);
-    this.props.newUser(this.state.username);
-    // this.props.createRoom(this.state.code); //join room instead
-    //redirect to ChatWindow
-    this.props.history.push({pathname: '/room', state: {code: this.state.code}});
+  msgComponent(data) {
+    console.log(data);
+    return (
+      <div>
+        { data }
+      </div>
+    )
+  }
+
+  onSubmit(formData) {
+    console.log("in onSubmit");
+    console.log(this.props);
+    this.props.addMessage(formData);
+
+    // emit event to server to join a room
+    socket.emit('enterRoom', {
+      'code': 'ADA1',
+      'username': this.state.username
+    });
+    // w/ callback for server response
+    socket.on('enterRoom', (data) => {
+      console.log('room entered');
+    });
+
+    socket.emit('msgSent', {
+      'username': this.state.username,
+      'message': formData.message
+    })
+
+    socket.on('msgShared', (data) => {
+      console.log(data);
+      // attach message to DOM
+      // use setState
+
+      // ReactDOM.render(
+      //   // this.msgComponent(data),
+      //   document.getElementById('messages-container')
+      // );
+    });
+
+
+
+    formData.message = "";
   }
 
   // `handleSubmit()` is a redux-form func for validations
