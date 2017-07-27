@@ -6,7 +6,10 @@ import Header from '../components/Header';
 import * as roomActions from '../actions/roomActions';
 import * as userActions from '../actions/userActions';
 
+var socket;
+
 class ChatSubmit extends Component {
+
   constructor(props){
     super(props);
     this.state = props.currentUser;
@@ -15,8 +18,9 @@ class ChatSubmit extends Component {
       console.log('username and code are both needed');
       this.props.history.push('/');
     }
-    this.withSubmit = this.withSubmit.bind(this);
-    // console.log(this.props);
+    console.log(props);
+    socket = this.props.socket;
+    console.log(socket);
   }
 
   renderField(field) {
@@ -48,7 +52,7 @@ class ChatSubmit extends Component {
   }
 
   onSubmit(formData) {
-    console.log("in onSubmit");
+    console.log('in onSubmit');
     console.log(this.props);
     this.props.addMessage(formData);
 
@@ -78,9 +82,6 @@ class ChatSubmit extends Component {
       // );
     });
 
-
-
-    formData.message = "";
   }
 
   // `handleSubmit()` is a redux-form func for validations
@@ -89,7 +90,7 @@ class ChatSubmit extends Component {
     return (
       <section>
         <Header />
-        <form onSubmit={handleSubmit(this.withSubmit)}>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <h3>now in room: {this.state.code}</h3>
           <h4>as {this.state.username}</h4>
           <Field

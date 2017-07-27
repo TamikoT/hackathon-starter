@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-const io = require('socket.io-client');
+import io from 'socket.io-client';
 
-// because router component expects only one child
-// create App component that renders everything
 
+// router component expects only one child wrapping every other component in App
 class App extends Component {
+
   constructor(props) {
     super(props);
     // make client-side connection with Express server
-    if (this.io === undefined) {
-      this.io = io('http://localhost:3001');
-    }
+    const socket = io('http://localhost:3001');
+    console.log(socket);
   }
+
   render() {
     return (
       <div className="App">
