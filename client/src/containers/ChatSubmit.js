@@ -26,17 +26,6 @@ class ChatSubmit extends Component {
     console.log( socket );
   }
 
-  // componentWillMount (props) {
-  //   this.state = { currentUser: props.currentUser };
-  //   console.log( this.state );
-  //
-  //   if ( this.state.username === undefined ) {
-  //     console.log('user needs both username and code');
-  //     alert( 'username and code are both needed' );
-  //     this.props.history.push( '/' );
-  //   }
-  // }
-
   renderField( field ) {
     // adds event handlers for fields
     return (

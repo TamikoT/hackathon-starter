@@ -11,6 +11,7 @@ const io = require('socket.io-client');
 class Welcome extends Component {
   constructor(props) {
     super(props);
+    console.log(props); // see what inside
     this.state = props.currentUser; // i.e. {username: '', code: ''}
   }
 
@@ -34,12 +35,9 @@ class Welcome extends Component {
   }
 
   onSubmit(props) {
-    console.log(props);
-    // Note: props is form data {username: '', code: ''}
+    // props in form of {username: '', code: ''}
     this.props.currentUser.username = this.props.username;
-    //redirect to ChatWindow
-    this.props.joinRoom(props);
-    // make client-side connection with backend if there isn't one already
+    // make client-side connection with backend if there isn't one
     if (this.io === undefined) {
       this.io = io('http://localhost:3001');
     }
