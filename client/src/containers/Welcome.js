@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import * as roomActions from '../actions/roomActions';
 import * as userActions from '../actions/userActions';
 import Header from '../components/Header';
-const io = require('socket.io-client');
 
 class Welcome extends Component {
   constructor(props) {
@@ -37,10 +36,7 @@ class Welcome extends Component {
   onSubmit(props) {
     // props in form of {username: '', code: ''}
     this.props.currentUser.username = this.props.username;
-    // make client-side connection with backend if there isn't one
-    if (this.io === undefined) {
-      this.io = io('http://localhost:3001');
-    }
+
     // re-route to chatSubmit
     this.props.history.push('/chat');
   }

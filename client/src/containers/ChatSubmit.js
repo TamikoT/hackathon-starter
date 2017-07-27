@@ -5,28 +5,27 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import * as roomActions from '../actions/roomActions';
 import * as userActions from '../actions/userActions';
+import io from 'socket.io-client';
 
-var socket;
+const socket = io('http://localhost:3001');
 
 class ChatSubmit extends Component {
+  constructor(props) {
+    super (props);
+    console.log(props);
 
-  constructor ( props ) {
-    super ( props );
-    console.log( props );
+    console.log(socket);
 
     this.state = { currentUser: props.currentUser };
     console.log( this.state );
 
-    if ( this.state.username === undefined ) {
-      console.log( 'username and code are both needed' );
-      this.props.history.push( '/' );
-    }
-
-    this.socket = props.socket;
-    console.log( socket );
+    // if ( this.state.username === undefined ) {
+    //   console.log( 'username and code are both needed' );
+    //   this.props.history.push( '/' );
+    // }
   }
 
-  renderField( field ) {
+  renderField(field) {
     // adds event handlers for fields
     return (
       <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-danger' : ''}`}>
@@ -49,7 +48,7 @@ class ChatSubmit extends Component {
     console.log(data);
     return (
       <div>
-        { data }
+        {data}
       </div>
     )
   }
@@ -111,7 +110,7 @@ class ChatSubmit extends Component {
 function validate(values) {
   const errors = {};
 
-  if (!values.message) {
+  if ( !values.message ) {
     errors.message = "can't send it blank!";
   }
 

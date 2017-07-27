@@ -5,6 +5,11 @@ const server = http.createServer(app);
 const socketIo = require('socket.io'); // create websockets
 const chalk = require('chalk');
 
+
+server.listen(port, function() {
+  console.log('Express server listening on port ' + port);
+});
+
 // set up websocket on backend with socket.io
 var io = socketIo(server);
 
@@ -26,9 +31,4 @@ io.on('connection', function(socket) {
     // sending data back to ALL sockets
     io.sockets.in(data.room).emit('chat', data);
   });
-});
-
-
-server.listen(port, function() {
-  console.log('Express server listening on port ' + port);
 });

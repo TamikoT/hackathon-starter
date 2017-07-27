@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 class ChatMessage extends Component {
-
   render() {
     return (
       <section className="chat-message-component">
