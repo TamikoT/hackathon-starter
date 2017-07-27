@@ -87,7 +87,6 @@ function validate(values) {
     errors.code = "Must enter room code!"
   }
 
-  // TODO: add extra validations for valid username + room
   return errors;
 }
 
@@ -95,8 +94,9 @@ function mapStateToProps(state, ownProps) {
  return { currentUser: state.currentUser }
 }
 
+// TODO: just save user to app state
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ joinRoom: roomActions.joinRoom, newUser: userActions.newUser, fetchRooms: roomActions.fetchRooms }, dispatch)
+  return bindActionCreators({ newUser: userActions.newUser }, dispatch)
 }
 
 export default reduxForm({
