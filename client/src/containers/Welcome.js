@@ -10,16 +10,11 @@ import Header from '../components/Header';
 class Welcome extends Component {
   constructor(props) {
     super(props);
-    this.state = props.currentUser;
-    // Note: this.state is {username: '', code: ''}
-  }
-
-  componentWillMount() {
-    this.props.fetchRooms();
+    this.state = props.currentUser; // i.e. {username: '', code: ''}
   }
 
   renderField(field) {
-    // adds event handlers for fields
+    // adds event handlers for fields (redux-form)
     return (
       <div className={`form-group ${field.meta.touched && field.meta.invalid ? "has-danger" : ""}`}>
         <label className="control-label">{field.label}</label>
@@ -38,6 +33,7 @@ class Welcome extends Component {
   }
 
   onSubmit(props) {
+    console.log(props);
     // Note: props is form data {username: '', code: ''}
     this.props.currentUser.username = this.props.username;
     //redirect to ChatWindow
