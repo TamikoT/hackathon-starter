@@ -10,20 +10,34 @@ var socket;
 
 class ChatSubmit extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = props.currentUser;
-    console.log(this.state);
-    if (this.state.username === undefined) {
-      console.log('username and code are both needed');
-      this.props.history.push('/');
+  constructor ( props ) {
+    super ( props );
+    console.log( props );
+
+    this.state = { currentUser: props.currentUser };
+    console.log( this.state );
+
+    if ( this.state.username === undefined ) {
+      console.log( 'username and code are both needed' );
+      this.props.history.push( '/' );
     }
-    console.log(props);
-    socket = this.props.socket;
-    console.log(socket);
+
+    this.socket = props.socket;
+    console.log( socket );
   }
 
-  renderField(field) {
+  // componentWillMount (props) {
+  //   this.state = { currentUser: props.currentUser };
+  //   console.log( this.state );
+  //
+  //   if ( this.state.username === undefined ) {
+  //     console.log('user needs both username and code');
+  //     alert( 'username and code are both needed' );
+  //     this.props.history.push( '/' );
+  //   }
+  // }
+
+  renderField( field ) {
     // adds event handlers for fields
     return (
       <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-danger' : ''}`}>
