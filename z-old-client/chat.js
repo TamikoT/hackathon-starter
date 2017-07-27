@@ -4,7 +4,7 @@ var socket = io.connect('http://localhost:3000');
 // raw DOM objects as variables
 var message = document.getElementById('message'),
     handle = document.getElementById('username'),
-    sendButton = document.getElementById('send'),
+    sendButton = document.getEementById('send'),
     messages = document.getElementById('messages'),
     enterButton = document.getElementById('enter');
     roomIn = document.getElementById('room');
@@ -39,7 +39,6 @@ enterButton.addEventListener('click', () => {
 
 socket.on('enter', (data) => {
   // console.log('you entered' + data.room);
-
 });
 
 // event triggered w/ `send` click - emit to Express server
