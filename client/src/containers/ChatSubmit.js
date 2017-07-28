@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux'
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import {Field, reduxForm} from 'redux-form';
+import {connect} from 'react-redux';
 import Header from '../components/Header';
 import * as roomActions from '../actions/roomActions';
 import * as userActions from '../actions/userActions';
@@ -13,10 +13,12 @@ const socket = io('http://localhost:3001');
 class ChatSubmit extends Component {
   constructor(props) {
     super(props);
+    this.addMessage = props.addMessage.bind(this);
+    // this.addMessage = this.addMessage.bind(this);
     console.log(props);
     console.log(socket);
 
-    this.state = { currentUser: props.currentUser };
+    this.state = props.currentUser;
     console.log(this.state);
   }
 
@@ -45,17 +47,15 @@ class ChatSubmit extends Component {
       <div>
         {data}
       </div>
-    )
+    );
   }
 
-  onSubmit(formData) {
-    console.log(formData);
-    this.addMessage(formData);
 
+  onSubmit(formData) {
     // emit event to server to join a room
     socket.emit('enterRoom', {
       'code': 'ADA1',
-      'username': this.state.currentUser.username
+      'username': formData.username
     });
     // w/ callback for server response
     socket.on('enterRoom', (data) => {
@@ -63,38 +63,41 @@ class ChatSubmit extends Component {
     });
 
     socket.emit('msgSent', {
-      'username': this.state.currentUser.username,
+      'username': formData.username,
       'message': formData.message
-    })
+    });
+
     socket.on('msgShared', (data) => {
       console.log(data);
-      this.render();
+      this.props.addMessage(formData);
     });
   }
 
   // `handleSubmit()` is a redux-form func for validations
   render() {
-    const {handleSubmit} = this.props;
+    var {handleSubmit} = this.props;
+    var self = this;
     return (
       <section>
         <Header />
-        <form onSubmit={handleSubmit(this.onSubmit)}>
-          <h3>now in room: {this.state.currentUser.code}</h3>
-          <h4>as {this.state.currentUser.username}</h4>
+        <form onSubmit={handleSubmit(self.onSubmit)}>
+          <h3>now in room: {self.state.code}</h3>
+          <h4>as {self.state.username}</h4>
           <Field
             name='message'
             label='message: '
-            component={this.renderField}
+            component={self.renderField}
           />
+          <input type='hidden' value={self.state.username} />
           <button type='submit' className='btn btn-primary'>Send</button>
         </form>
       </section>
-    )
+    );
   }
 }
 
 function validate(values) {
-  const errors = {};
+  var errors = {};
 
   if ( !values.message ) {
     errors.message = "can't send it blank!";
@@ -104,16 +107,18 @@ function validate(values) {
 }
 
 function mapStateToProps(state, ownProps) {
-  return { currentUser: state.currentUser }
+  return ({
+    messages: state.messages,
+    currentUser: state.currentUser,
+    addMessage: messageActions.addMessage
+  });
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({addMessage: messageActions.addMessage}, dispatch)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({addMessage: messageActions.addMessage}, dispatch);
 }
 
-export default reduxForm( {
-  form: 'ChatSubmit',
-  validate
-} )(
+export default reduxForm({form: 'ChatSubmit', validate
+})(
   connect(mapStateToProps, mapDispatchToProps)(ChatSubmit)
 );

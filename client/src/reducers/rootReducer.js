@@ -6,6 +6,7 @@ import { reducer as formReducer } from 'redux-form';
 const rootReducer = combineReducers({
   currentUser: userReducer,
   rooms: roomsReducer,
+  
   // set reducer for form from redux-form lib with alias
   form: formReducer
 });

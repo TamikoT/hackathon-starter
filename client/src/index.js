@@ -19,7 +19,7 @@ import HostLogin from './containers/HostLogin';
 
 const store = ConfigAppStore();
 
-store.subscribe(() => {
+store.subscribe( () => {
   // console.log(store.getState());
 });
 
